@@ -4,6 +4,7 @@ import {Switch, Route, Redirect, withRouter } from 'react-router-dom'
 
 import SignupForm from './Components/Login_Signup/SignupForm'
 import Login from './Components/Login_Signup/Login'
+import AdminHome from './Components/AdminComponents/AdminHome'
 
 import { autoLogin } from './Components/fetches'
 
@@ -45,17 +46,28 @@ class App extends Component {
     })//end set state
   }
 
-  render(){
-    console.log("APP STATE", this.state)
-    return (
-      <Fragment>
-        <SignupForm/>
-        <br/>
-        <Login loginSuccess={this.loginSuccess}/>
-      </Fragment>
-    );
+  logout = () => {
+    localStorage.removeItem("token")
+    this.setState({
+      authenticated: false,
+      currentUser: null,
+      userPosts: null
+    })
   }
 
+  render(){
+    if(this.state.authenticated){
+      return <AdminHome logout={this.logout}/>
+    } else {
+      return (
+        <Fragment>
+          <SignupForm/>
+          <br/>
+          <Login loginSuccess={this.loginSuccess}/>
+        </Fragment>
+      );
+    }
+  }
 }
 
 export default App;
