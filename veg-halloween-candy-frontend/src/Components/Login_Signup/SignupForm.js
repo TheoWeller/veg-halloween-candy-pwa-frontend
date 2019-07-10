@@ -32,8 +32,6 @@ class SignupForm extends Component {
   // }
 
   render(){
-    console.log("State", this.state);
-    console.log("CREate", typeof createUser);
     return (
       <div>
         <form className="container" noValidate autoComplete="off">

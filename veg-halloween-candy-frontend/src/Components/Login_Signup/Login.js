@@ -2,19 +2,25 @@ import React from 'react';
 import {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-// import FormControl from 'material-ui/core/FormControl';
-// import InputLabel from 'material-ui/core/InputLabel';
+
+import { login } from '../fetches'
 
 class SignupForm extends Component {
 
-  state = {username: "", password: "", email: "", passwordConfirmation: ""}
+  state = { password: "", email: "" }
 
   handleFormChange = name => event => {
     this.setState({...this.state, [name]: event.target.value})
   }
 
   onSubmit = e => {
-    console.log("CLICKED");
+    login(this.state)
+    .then(data => {
+      if(data.status === "success"){
+        localStorage.setItem("token", data.token)
+        this.props.loginSuccess(data)
+      }
+    })
   }
 
   render(){

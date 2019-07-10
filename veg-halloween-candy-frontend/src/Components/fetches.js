@@ -6,7 +6,7 @@ export const autoLogin = token => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(token)
+      body: JSON.stringify({payload: token})
     })
     .then(response => response.json())
     .then(data => {
