@@ -1,11 +1,17 @@
 import React from 'react';
+import {Component} from 'react';
 import './App.css';
 import SignupForm from './Components/SignupForm'
 
-function App() {
-  return (
-      <SignupForm />
-  );
+class App extends Component {
+
+  render(){
+    return (
+      <SignupForm
+      />
+    );
+  }
+
 }
 
 export default App;
