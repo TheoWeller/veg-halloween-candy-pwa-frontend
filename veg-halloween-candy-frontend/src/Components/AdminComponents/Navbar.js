@@ -29,6 +29,7 @@ export default function Navbar(props) {
                </IconButton>
                <Typography variant="h6" className={classes.title}>
                </Typography>
+               <Button color="inherit" onClick={props.handleCreatePost} >New Post</Button>
                <Button color="inherit" onClick={props.logout} >Logout</Button>
             </Toolbar>
          </AppBar>

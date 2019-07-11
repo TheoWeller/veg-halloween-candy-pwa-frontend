@@ -9,7 +9,7 @@ import CreatePostForm from './CreatePostForm'
 
 class AdminHome extends Component {
   state = {
-    modalOpen: true
+    modalOpen: false
   }
 
   createPostModal = () => {
@@ -21,17 +21,45 @@ class AdminHome extends Component {
       fullWidth
       >
         <Container component="div">
-          <CreatePostForm/>
+          <CreatePostForm
+          handleCancel={this.handleCancel}
+          handlePost={this.handlePost}
+          handleSave={this.handleSave}
+          handlePreview={this.handlePreview}
+          />
         </Container>
       </Dialog>
     )
+  }
+
+  handleCancel = () => {
+    this.setState({...this.state, modalOpen: false})
+  }
+
+  handlePost = (state) => {
+
+  }
+
+  handleSave = (state) => {
+
+  }
+
+  handlePreview = () => {
+
+  }
+
+  handleCreatePost = () => {
+    this.setState({...this.state, modalOpen: true})
   }
 
 
   render(){
     return(
       <div>
-      <Navbar logout={this.props.logout}/>
+      <Navbar
+        logout={this.props.logout}
+        handleCreatePost={this.handleCreatePost}
+      />
       {this.createPostModal()}
       </div>
     )

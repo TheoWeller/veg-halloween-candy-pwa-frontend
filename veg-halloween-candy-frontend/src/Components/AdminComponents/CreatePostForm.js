@@ -41,9 +41,6 @@ class CreatePostForm extends Component {
   }
 
   render(){
-
-
-
     return (
       <Container component="div">
         <Container
@@ -140,7 +137,7 @@ class CreatePostForm extends Component {
             <Button
               variant="contained"
               className={"Button"}
-              onClick={this.onSubmit}
+              onClick={() => this.props.handlePosts(this.state)}
               label="POST"
             >
             POST
@@ -148,21 +145,21 @@ class CreatePostForm extends Component {
             <Button
               label="SAVE"
               variant="contained"
-              onClick={""}
+              onClick={this.props.handleSave}
             >
             SAVE
             </Button>
             <Button
               label="Preview"
               variant="contained"
-              onClick={""}
+              onClick={() => this.props.handlePreview(this.state)}
             >
             PREVIEW
             </Button>
             <Button
               label="Save"
               variant="contained"
-              onClick={""}
+              onClick={this.props.handleCancel}
             >
             CANCEL
             </Button>
