@@ -4,7 +4,6 @@ import Dialog from '@material-ui/core/Dialog';
 
 import Container from '@material-ui/core/Container';
 import Navbar from './Navbar'
-import CreatePostCard from './CreatePostCard'
 import CreatePostForm from './CreatePostForm'
 
 class AdminHome extends Component {
@@ -22,10 +21,9 @@ class AdminHome extends Component {
       >
         <Container component="div">
           <CreatePostForm
-          handleCancel={this.handleCancel}
-          handlePost={this.handlePost}
-          handleSave={this.handleSave}
-          handlePreview={this.handlePreview}
+            handleCancel={this.handleCancel}
+            handlePost={this.handlePost}
+            handleSave={this.handleSave}
           />
         </Container>
       </Dialog>
@@ -41,10 +39,6 @@ class AdminHome extends Component {
   }
 
   handleSave = (state) => {
-
-  }
-
-  handlePreview = () => {
 
   }
 

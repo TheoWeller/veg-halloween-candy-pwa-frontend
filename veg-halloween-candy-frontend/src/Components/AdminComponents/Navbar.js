@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,11 +25,17 @@ export default function Navbar(props) {
       <div className={classes.root}>
          <AppBar position="static">
             <Toolbar>
-               <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
+               <IconButton edge="start"
+                 className={classes.menuButton}
+                 color="inherit"
+                 aria-label="draft new post"
+                 size="large"
+                 onClick={props.handleCreatePost}
+               >
+                  <AddIcon />
                </IconButton>
                <Typography variant="h6" className={classes.title}>
                </Typography>
-               <Button color="inherit" onClick={props.handleCreatePost} >New Post</Button>
                <Button color="inherit" onClick={props.logout} >Logout</Button>
             </Toolbar>
          </AppBar>
