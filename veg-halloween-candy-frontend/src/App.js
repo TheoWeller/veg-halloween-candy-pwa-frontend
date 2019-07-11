@@ -37,7 +37,6 @@ class App extends Component {
   }
 
   loginSuccess = payload => {
-    debugger
     this.setState({
       ...this.state,
       authenticated: true,
