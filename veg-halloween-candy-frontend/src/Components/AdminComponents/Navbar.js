@@ -25,15 +25,17 @@ export default function Navbar(props) {
       <div className={classes.root}>
          <AppBar position="static">
             <Toolbar>
-               <IconButton edge="start"
-                 className={classes.menuButton}
-                 color="inherit"
-                 aria-label="draft new post"
-                 size="large"
-                 onClick={props.handleCreatePost}
-               >
-                  <AddIcon />
-               </IconButton>
+
+                 <Button
+                  edge="start"
+                   className={classes.menuButton}
+                   color="inherit"
+                   aria-label="draft new post"
+                   size="medium"
+                   onClick={props.handleCreatePost}
+                 >
+                    <AddIcon /> New Post
+                 </Button>
                <Typography variant="h6" className={classes.title}>
                </Typography>
                <Button color="inherit" onClick={props.logout} >Logout</Button>

@@ -14,36 +14,54 @@ const useStyles = makeStyles({
   card: {maxWidth: "100%"}
 });
 
-export default function CreatePostCard(){
+const handleImg = () => {
+
+}
+
+function openInNewTab(url) {
+  var win = window.open(url, '_blank');
+  win.focus();
+}
+
+const handleShopNowClick = (url) => {
+  console.log("URL", url);
+  openInNewTab(url)
+  // window.location.replace(url)
+}
+
+export default function CreatePostCard(props){
+  console.log(props);
   const classes = useStyles();
   return (
     <Card className={classes.card} raised>
       <CardActionArea>
-        <CardMedia/>
+      <CardMedia
+        component="img"
+        alt="desc"
+        src={props.content.imgUrl1}
+        title="title"
+      />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              Zots!
+              {props.content.title}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              They're really great I love them so much. They fizzle and pop so delightfully its insane. 10/10 would reccomend.
+              {props.content.contentBody}
             </Typography>
           </CardContent>
         </CardActionArea>
       <CardActions>
-        <Button size="large" color="primary">
-        BUY
+        <Button
+          size="large"
+          color="primary"
+          variant="outlined"
+          onClick={() => handleShopNowClick(props.content.referralLink)}>
+            SHOP NOW
         </Button>
       </CardActions>
     </Card>
   )
 }
 
-// <CardMedia
-// component="img"
-// alt="desc"
-// height="140"
-// image="/static/images/blahblahblah"
-// src="www.ggogle.com/zots"
-// title="title"
-// />
+
 // <TextareaAutosize aria-label="Minimum height" rows={10}/>

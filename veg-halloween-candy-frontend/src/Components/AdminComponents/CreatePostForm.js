@@ -5,8 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import { flexbox } from '@material-ui/system'
 import Modal from '@material-ui/core/Modal';
 
-import CreatePostCard from './CreatePostCard'
 
+import CreatePostCard from './CreatePostCard'
 
 // import Card from '@material-ui/core/Card';
 // import { makeStyles } from '@material-ui/core/styles';
@@ -29,25 +29,52 @@ class CreatePostForm extends Component {
     candyType: "",
     referralLink: "",
     postPreviewOpen: false,
-    previewProps: null
+    previewProps: null,
+    urlError: null
   }
 
   handleFormChange = name => event => {
     this.setState({...this.state, [name]: event.target.value})
   }
 
-  handlePreview = (postContent) => {
-    this.setState(
-      {
-        ...this.state,
-        postPreviewOpen: true,
-        previewProps: postContent
-      }
-    )
+  validateUrl = (postUrl) => {
+    const validate = require("validate.js");
+    const isValid = validate({website: postUrl}, {website: {url: true}})
+    //Valid url's return undefined
+    return !isValid ? true : false
   }
 
-  onSubmit = e => {
-    debugger
+  urlErrorSetState = () => {
+    return this.state.urlError ? true : false
+  }
+
+  helperTextHandler = () => {
+    const message = "ENTER VALID URL: http://www.blursed.com"
+    return this.state.urlError ? message : ""
+  }
+
+  handlePreview = (state) => {
+    this.validateUrl(state.referralLink) ? (
+      this.setState(
+        {
+          ...this.state,
+          postPreviewOpen: true,
+          previewProps: state
+        }
+      )
+    )
+    :
+    this.setState({...this.state, urlError: true})
+  }
+
+  handlePostClick = (state) => {
+    return this.validateUrl(state.referralLink) ? (
+      this.props.handlePosts(this.state)
+    ) : this.setState({...this.state, urlError: true})
+  }
+
+  handleModuleExitClick = () => {
+    this.setState({...this.state, postPreviewOpen: false})
   }
 
   postPreview = (content) => {
@@ -55,12 +82,21 @@ class CreatePostForm extends Component {
       <Modal
         open={this.state.postPreviewOpen}
         fullWidth
+        onBackdropClick={this.handleModuleExitClick}
+        onEscapeKeyDown={this.handleModuleExitClick}
       >
         <Container
         component="div"
         style={{"width":"100%", "height":"100%"}}
         >
-          <CreatePostCard content={content}/>
+        <CreatePostCard content={content}/>
+          <Button
+            label="Exit"
+            variant="contained"
+            onClick={this.handleModuleExitClick}
+          >
+            Exit
+          </Button>
         </Container>
       </Modal>
     )
@@ -123,6 +159,8 @@ class CreatePostForm extends Component {
             <TextField
               label="Referral Link"
               className="textField"
+              helperText={this.helperTextHandler()}
+              error={this.urlErrorSetState()}
               fullWidth
               value={this.state.referralLink}
               onChange={this.handleFormChange("referralLink")}
@@ -165,17 +203,10 @@ class CreatePostForm extends Component {
               <Button
                 variant="contained"
                 className={"Button"}
-                onClick={() => this.props.handlePosts(this.state)}
+                onClick={() => this.handlePostClick(this.state)}
                 label="POST"
               >
               POST
-              </Button>
-              <Button
-                label="SAVE"
-                variant="contained"
-                onClick={this.props.handleSave}
-              >
-              SAVE
               </Button>
               <Button
                 label="Preview"
@@ -183,6 +214,13 @@ class CreatePostForm extends Component {
                 onClick={() => this.handlePreview(this.state)}
               >
               PREVIEW
+              </Button>
+              <Button
+                label="SAVE"
+                variant="contained"
+                onClick={this.props.handleSave}
+              >
+              SAVE
               </Button>
               <Button
                 label="Save"
