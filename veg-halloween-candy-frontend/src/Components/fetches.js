@@ -61,7 +61,7 @@ export const createPost = postContent => {
 }
 
 export const savePost = postContent => {
-  return fetch(`http://localhost:3000/api/v1/save`, {
+  return fetch(`http://localhost:3000/api/v1/posts/save`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

@@ -7,6 +7,7 @@ import Modal from '@material-ui/core/Modal';
 
 import CreatePostCard from './CreatePostCard'
 import { createPost, savePost } from '../fetches'
+import ConfirmationModal from './modals/confirmationModal'
 
 // import Card from '@material-ui/core/Card';
 // import { makeStyles } from '@material-ui/core/styles';
@@ -28,7 +29,7 @@ const initialState = {
   referralLink: "",
   postPreviewOpen: false,
   previewProps: "",
-  urlError: ""
+  confirmationOpen: false
 }
 
 class CreatePostForm extends Component {
@@ -37,15 +38,6 @@ class CreatePostForm extends Component {
 
   handleFormChange = name => event => {
     this.setState({...this.state, [name]: event.target.value})
-  }
-
-  urlErrorSetState = () => {
-    return this.state.urlError ? true : false
-  }
-
-  helperTextHandler = () => {
-    const message = "ENTER VALID URL: http://www.blursed.com"
-    return this.state.urlError ? message : ""
   }
 
   handlePreview = (state) => {
@@ -76,16 +68,48 @@ class CreatePostForm extends Component {
     })
   }
 
-  handleSave = (state) => {
-    savePost
+  handleSaveClick = (state) => {
+    let payload={
+      ...this.state,
+      token: this.props.token,
+      userId: this.props.currentUser.id
+    }
+    delete payload.confirmationOpen
+    delete payload.previewProps
+    delete payload.postPreviewOpen
+    savePost(payload)
+    this.setState({...this.state, confirmationOpen: false})
+  }
+
+  handleCancelClick = () => {
+    this.setState({
+      ...this.state,
+      confirmationOpen: true
+    })
   }
 
   handleModuleExitClick = () => {
     this.setState({...this.state, postPreviewOpen: false})
   }
 
-  clickConfirmation = () => {
+  cancelPost = (yesOrNo) => {
+    if(yesOrNo){
+      this.setState({
+        ...this.state,
+        confirmationOpen: false
+      }, this.props.handleCancel)
+    } else {
+      this.setState({...this.state, confirmationOpen: false})
+    }
+  }
 
+  confirmationModal = () => {
+    return (
+      <ConfirmationModal
+        isOpen={this.state.confirmationOpen}
+        cancelPost={this.cancelPost}
+      />
+    )
   }
 
   postPreview = (content) => {
@@ -117,6 +141,7 @@ class CreatePostForm extends Component {
     return (
       <Fragment>
         {this.state.previewProps && this.postPreview(this.state.previewProps)}
+        {this.state.confirmationOpen && this.confirmationModal()}
         <Container component="div">
           <Container
           component="div"
@@ -170,8 +195,6 @@ class CreatePostForm extends Component {
             <TextField
               label="Referral Link"
               className="textField"
-              helperText={this.helperTextHandler()}
-              error={this.urlErrorSetState()}
               fullWidth
               value={this.state.referralLink}
               onChange={this.handleFormChange("referralLink")}
@@ -229,14 +252,14 @@ class CreatePostForm extends Component {
               <Button
                 label="SAVE"
                 variant="contained"
-                onClick={this.handleSave}
+                onClick={this.handleSaveClick}
               >
               SAVE
               </Button>
               <Button
                 label="Save"
                 variant="contained"
-                onClick={this.props.handleCancel}
+                onClick={this.handleCancelClick}
               >
               CANCEL
               </Button>

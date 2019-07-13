@@ -35,8 +35,6 @@ class AdminHome extends Component {
     this.setState({...this.state, modalOpen: false})
   }
 
-
-
   handleCreatePost = () => {
     this.setState({...this.state, modalOpen: true})
   }
