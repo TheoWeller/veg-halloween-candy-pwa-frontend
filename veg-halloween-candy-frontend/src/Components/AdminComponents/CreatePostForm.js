@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import { flexbox } from '@material-ui/system'
 import Modal from '@material-ui/core/Modal';
 
-
 import CreatePostCard from './CreatePostCard'
 import { createPost, savePost } from '../fetches'
 
@@ -39,13 +38,6 @@ class CreatePostForm extends Component {
   handleFormChange = name => event => {
     this.setState({...this.state, [name]: event.target.value})
   }
-
-  // validateUrl = (postUrl) => {
-  //   const validate = require("validate.js");
-  //   const isValid = validate({website: postUrl}, {website: {url: true}})
-  //   //Valid url's return undefined
-  //   return !isValid ? true : false
-  // }
 
   urlErrorSetState = () => {
     return this.state.urlError ? true : false
@@ -85,7 +77,7 @@ class CreatePostForm extends Component {
   }
 
   handleSave = (state) => {
-    // posts
+    savePost
   }
 
   handleModuleExitClick = () => {
