@@ -25,7 +25,6 @@ class AdminHome extends Component {
             token={this.props.token}
             handleCancel={this.handleCancel}
             handlePost={this.handlePost}
-            handleSave={this.handleSave}
           />
         </Container>
       </Dialog>
@@ -36,9 +35,7 @@ class AdminHome extends Component {
     this.setState({...this.state, modalOpen: false})
   }
 
-  handleSave = (state) => {
 
-  }
 
   handleCreatePost = () => {
     this.setState({...this.state, modalOpen: true})

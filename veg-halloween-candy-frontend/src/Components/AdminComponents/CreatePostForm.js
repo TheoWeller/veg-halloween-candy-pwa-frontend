@@ -7,7 +7,7 @@ import Modal from '@material-ui/core/Modal';
 
 
 import CreatePostCard from './CreatePostCard'
-import { createPost } from '../fetches'
+import { createPost, savePost } from '../fetches'
 
 // import Card from '@material-ui/core/Card';
 // import { makeStyles } from '@material-ui/core/styles';
@@ -40,12 +40,12 @@ class CreatePostForm extends Component {
     this.setState({...this.state, [name]: event.target.value})
   }
 
-  validateUrl = (postUrl) => {
-    const validate = require("validate.js");
-    const isValid = validate({website: postUrl}, {website: {url: true}})
-    //Valid url's return undefined
-    return !isValid ? true : false
-  }
+  // validateUrl = (postUrl) => {
+  //   const validate = require("validate.js");
+  //   const isValid = validate({website: postUrl}, {website: {url: true}})
+  //   //Valid url's return undefined
+  //   return !isValid ? true : false
+  // }
 
   urlErrorSetState = () => {
     return this.state.urlError ? true : false
@@ -57,23 +57,16 @@ class CreatePostForm extends Component {
   }
 
   handlePreview = (state) => {
-    this.validateUrl(state.referralLink) ? (
-      this.setState(
-        {
-          ...this.state,
-          postPreviewOpen: true,
-          previewProps: state
-        }
-      )
+    this.setState({
+        ...this.state,
+        postPreviewOpen: true,
+        previewProps: state
+      }
     )
-    :
-    this.setState({...this.state, urlError: true})
   }
 
   handlePostClick = (state) => {
-    return this.validateUrl(state.referralLink) ? (
-      this.handlePost(this.state)
-    ) : this.setState({...this.state, urlError: true})
+    this.handlePost(this.state)
   }
 
   handlePost = (state) => {
@@ -91,8 +84,16 @@ class CreatePostForm extends Component {
     })
   }
 
+  handleSave = (state) => {
+    // posts
+  }
+
   handleModuleExitClick = () => {
     this.setState({...this.state, postPreviewOpen: false})
+  }
+
+  clickConfirmation = () => {
+
   }
 
   postPreview = (content) => {
@@ -121,8 +122,6 @@ class CreatePostForm extends Component {
   }
 
   render(){
-    console.log("STATEEEE", this.state);
-    console.log("PROPZZZZ", this.props);
     return (
       <Fragment>
         {this.state.previewProps && this.postPreview(this.state.previewProps)}
@@ -238,7 +237,7 @@ class CreatePostForm extends Component {
               <Button
                 label="SAVE"
                 variant="contained"
-                onClick={this.props.handleSave}
+                onClick={this.handleSave}
               >
               SAVE
               </Button>

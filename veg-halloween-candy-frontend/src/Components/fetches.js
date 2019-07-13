@@ -59,3 +59,19 @@ export const createPost = postContent => {
       return data;
     })
 }
+
+export const savePost = postContent => {
+  return fetch(`http://localhost:3000/api/v1/save`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+         'Authenticate': postContent.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postContent)
+    })
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    })
+}
