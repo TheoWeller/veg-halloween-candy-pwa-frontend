@@ -7,6 +7,7 @@ import Modal from '@material-ui/core/Modal';
 
 
 import CreatePostCard from './CreatePostCard'
+import { createPost } from '../fetches'
 
 // import Card from '@material-ui/core/Card';
 // import { makeStyles } from '@material-ui/core/styles';
@@ -18,20 +19,22 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
+const initialState = {
+  title: "",
+  contentBody: "",
+  imgUrl1: "",
+  imgUrl2: "",
+  candyName: "",
+  candyType: "",
+  referralLink: "",
+  postPreviewOpen: false,
+  previewProps: "",
+  urlError: ""
+}
+
 class CreatePostForm extends Component {
 
-  state = {
-    title: "",
-    contentBody: "",
-    imgUrl1: "",
-    imgUrl2: "",
-    candyName: "",
-    candyType: "",
-    referralLink: "",
-    postPreviewOpen: false,
-    previewProps: null,
-    urlError: null
-  }
+  state = initialState
 
   handleFormChange = name => event => {
     this.setState({...this.state, [name]: event.target.value})
@@ -69,8 +72,23 @@ class CreatePostForm extends Component {
 
   handlePostClick = (state) => {
     return this.validateUrl(state.referralLink) ? (
-      this.props.handlePosts(this.state)
+      this.handlePost(this.state)
     ) : this.setState({...this.state, urlError: true})
+  }
+
+  handlePost = (state) => {
+    delete state.postPreviewOpen
+    delete state.urlError
+
+    const payload = {
+      ...state,
+      token: this.props.token,
+      userId: this.props.currentUser.id
+    }
+    createPost(payload)
+    .then(data => {
+      data.status ? this.setState(initialState, this.props.handleCancel) : alert("Failed to post.")
+    })
   }
 
   handleModuleExitClick = () => {
@@ -103,6 +121,8 @@ class CreatePostForm extends Component {
   }
 
   render(){
+    console.log("STATEEEE", this.state);
+    console.log("PROPZZZZ", this.props);
     return (
       <Fragment>
         {this.state.previewProps && this.postPreview(this.state.previewProps)}

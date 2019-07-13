@@ -17,7 +17,7 @@ class SignupForm extends Component {
     login(this.state)
     .then(data => {
       if(data.status === "success"){
-        localStorage.setItem("token", data.token)
+        localStorage.setItem("vhcToken", data.token)
         this.props.loginSuccess(data)
       }
     })

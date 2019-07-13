@@ -21,6 +21,8 @@ class AdminHome extends Component {
       >
         <Container component="div">
           <CreatePostForm
+            currentUser={this.props.currentUser}
+            token={this.props.token}
             handleCancel={this.handleCancel}
             handlePost={this.handlePost}
             handleSave={this.handleSave}
@@ -32,10 +34,6 @@ class AdminHome extends Component {
 
   handleCancel = () => {
     this.setState({...this.state, modalOpen: false})
-  }
-
-  handlePost = (state) => {
-
   }
 
   handleSave = (state) => {

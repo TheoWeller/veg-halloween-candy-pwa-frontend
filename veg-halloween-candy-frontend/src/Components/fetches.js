@@ -43,3 +43,19 @@ export const createUser = credentials => {
       return data;
     })
 }
+
+export const createPost = postContent => {
+  return fetch(`http://localhost:3000/api/v1/posts/create`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+         'Authenticate': postContent.token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postContent)
+    })
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    })
+}

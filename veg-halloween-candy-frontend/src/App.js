@@ -11,8 +11,10 @@ import { autoLogin } from './Components/fetches'
 class App extends Component {
   state = {
     authenticated: false,
-    currentUser: null,
-    userPosts: null
+    currentUser: "",
+    userPosts: "",
+    token: "",
+    loading: true
   }
 
   componentDidMount(){
@@ -20,13 +22,14 @@ class App extends Component {
   }
 
   checkForToken = () => {
-    const token = localStorage.token
+    const token = localStorage.vhcToken
     if (token) {
       autoLogin(token)
       .then(data => {
         if(data.status === "success"){
           this.setState({
             ...this.state,
+            loading: false,
             authenticated: true,
             currentUser: data.currentUser,
             userPosts: data.posts
@@ -40,13 +43,16 @@ class App extends Component {
     this.setState({
       ...this.state,
       authenticated: true,
+      loading: false,
       currentUser: payload.current_user,
-      userPosts: payload.posts
+      userPosts: payload.posts,
+      token: payload.token
     })//end set state
+
   }
 
   logout = () => {
-    localStorage.removeItem("token")
+    localStorage.removeItem("vhcToken")
     this.setState({
       authenticated: false,
       currentUser: null,
@@ -55,16 +61,26 @@ class App extends Component {
   }
 
   render(){
-    if(this.state.authenticated){
-      return <AdminHome logout={this.logout}/>
-    } else {
-      return (
-        <Fragment>
+    if(!this.state.loading){
+      if(this.state.authenticated && this.state.currentUser){
+        return (
+          <AdminHome
+          currentUser={this.state.currentUser}
+          logout={this.logout}
+          token={this.state.token}
+          />
+        )
+      } else {
+        return (
+          <Fragment>
           <SignupForm/>
           <br/>
           <Login loginSuccess={this.loginSuccess}/>
-        </Fragment>
-      );
+          </Fragment>
+        );
+      }
+    } else {
+      return <h1>"LOADING..."</h1>
     }
   }
 }

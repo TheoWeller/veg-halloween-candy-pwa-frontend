@@ -27,10 +27,6 @@ class SignupForm extends Component {
     }
   }
 
-  // handleErrorMessages = () => {
-  //   return this.state.passwordError ? "Passwords must match" : ""
-  // }
-
   render(){
     return (
       <div>
