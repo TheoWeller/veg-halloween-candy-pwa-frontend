@@ -1,6 +1,11 @@
 import React from 'react';
 import {Component} from 'react';
 import Dialog from '@material-ui/core/Dialog';
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { logout } from '../../actions/sessionActions'
+
+
 
 import Container from '@material-ui/core/Container';
 import Navbar from './Navbar'
@@ -54,4 +59,19 @@ class AdminHome extends Component {
   }
 }
 
-export default AdminHome;
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.session.currentUser,
+    authenticated: state.session.authenticated,
+    userPosts: state.session.userPosts,
+    loading: false
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(logout())
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AdminHome));

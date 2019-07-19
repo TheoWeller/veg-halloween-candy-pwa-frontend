@@ -1,21 +1,16 @@
 import React from 'react';
 import {Component, Fragment} from 'react';
 import {Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
+
 
 import SignupForm from './Components/Login_Signup/SignupForm'
 import Login from './Components/Login_Signup/Login'
 import AdminHome from './Components/AdminComponents/AdminHome'
 
-import { autoLogin } from './Components/fetches'
+import { autoLogin, sessionFetch } from './actions/sessionActions'
 
 class App extends Component {
-  state = {
-    authenticated: false,
-    currentUser: "",
-    userPosts: "",
-    token: "",
-    loading: true
-  }
 
   componentDidMount(){
     this.checkForToken()
@@ -24,13 +19,8 @@ class App extends Component {
   checkForToken = () => {
     const token = localStorage.vhcToken
     if (token) {
-      autoLogin(token)
-      .then(data => {
-        if(data.status === "success"){
-          this.loginSuccess(data)
-        }//end nested conditional
-      })//end promise
-    }//end outer conditional
+      this.props.login(autoLogin(token))
+    }
   }
 
   loginSuccess = payload => {
@@ -44,24 +34,13 @@ class App extends Component {
     })//end set state
   }
 
-  logout = () => {
-    localStorage.removeItem("vhcToken")
-    this.setState({
-      authenticated: false,
-      currentUser: null,
-      userPosts: null
-    })
-  }
-
   render(){
-    if(!this.state.loading){
-      if(this.state.authenticated && this.state.currentUser){
-        console.log("APPP STATE", this.state);
+    if(!this.props.loading){
+      if(this.props.authenticated && this.props.currentUser){
         return (
           <AdminHome
-          currentUser={this.state.currentUser}
-          logout={this.logout}
-          token={this.state.token}
+          currentUser={this.props.currentUser}
+          token={this.props.token}
           posts={this.props.userPosts}
           />
         )
@@ -80,4 +59,17 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.session.currentUser,
+    authenticated: state.session.authenticated,
+    userPosts: state.session.userPosts,
+    loading: false
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {login: (credentials) => dispatch(sessionFetch(credentials, "auto_login"))}
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
