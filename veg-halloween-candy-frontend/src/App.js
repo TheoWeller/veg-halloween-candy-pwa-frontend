@@ -27,13 +27,7 @@ class App extends Component {
       autoLogin(token)
       .then(data => {
         if(data.status === "success"){
-          this.setState({
-            ...this.state,
-            loading: false,
-            authenticated: true,
-            currentUser: data.currentUser,
-            userPosts: data.posts
-          })//end set state
+          this.loginSuccess(data)
         }//end nested conditional
       })//end promise
     }//end outer conditional
@@ -48,7 +42,6 @@ class App extends Component {
       userPosts: payload.posts,
       token: payload.token
     })//end set state
-
   }
 
   logout = () => {
@@ -63,11 +56,13 @@ class App extends Component {
   render(){
     if(!this.state.loading){
       if(this.state.authenticated && this.state.currentUser){
+        console.log("APPP STATE", this.state);
         return (
           <AdminHome
           currentUser={this.state.currentUser}
           logout={this.logout}
           token={this.state.token}
+          posts={this.props.userPosts}
           />
         )
       } else {

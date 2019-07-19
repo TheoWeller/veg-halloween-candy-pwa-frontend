@@ -24,7 +24,6 @@ class SignupForm extends Component {
   }
 
   render(){
-    // console.log("State", this.state);
     return (
       <div>
         <form className="container" noValidate autoComplete="off">
