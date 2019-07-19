@@ -41,7 +41,7 @@ class AdminHome extends Component {
 
 
   render(){
-    console.log(this.props);
+    console.log("ADMINHOME", this.props);
     return(
       <div>
       <Navbar
