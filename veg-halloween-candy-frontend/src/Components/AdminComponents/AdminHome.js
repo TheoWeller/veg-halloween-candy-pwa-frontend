@@ -12,9 +12,7 @@ import Navbar from './Navbar'
 import CreatePostForm from './CreatePostForm'
 
 class AdminHome extends Component {
-  state = {
-    modalOpen: false
-  }
+  state = { modalOpen: false }
 
   createPostModal = () => {
     return (

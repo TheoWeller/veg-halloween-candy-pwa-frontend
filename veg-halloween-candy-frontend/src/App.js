@@ -23,19 +23,8 @@ class App extends Component {
     }
   }
 
-  loginSuccess = payload => {
-    this.setState({
-      ...this.state,
-      authenticated: true,
-      loading: false,
-      currentUser: payload.current_user,
-      userPosts: payload.posts,
-      token: payload.token
-    })//end set state
-  }
-
   render(){
-    if(!this.props.loading){
+    if(!this.props.loading || this.props.authenticated){
       if(this.props.authenticated && this.props.currentUser){
         return (
           <AdminHome
@@ -47,24 +36,25 @@ class App extends Component {
       } else {
         return (
           <Fragment>
-          <SignupForm/>
+          <SignupForm />
           <br/>
-          <Login loginSuccess={this.loginSuccess}/>
+          <Login />
           </Fragment>
-        );
-      }
+        )
+      }//end of nested "if" statement
     } else {
       return <h1>"LOADING..."</h1>
-    }
+    }//end of outer "if" statement
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.session);
   return {
     currentUser: state.session.currentUser,
     authenticated: state.session.authenticated,
     userPosts: state.session.userPosts,
-    loading: false
+    loading: state.session.loading
   }
 }
 
