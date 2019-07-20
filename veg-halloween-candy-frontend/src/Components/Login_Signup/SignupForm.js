@@ -4,6 +4,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { createUser } from '../fetches'
+import { connect } from 'react-redux';
+import { login, sessionFetch } from '../../actions/sessionActions'
+import { withRouter } from 'react-router'
+
 
 class SignupForm extends Component {
 
@@ -21,7 +25,15 @@ class SignupForm extends Component {
 
   onSubmit = e => {
     if(this.state.password === this.state.passwordConfirmation){
-      createUser(this.state)
+
+      const signUpCredentials = {
+        username: this.state.username,
+        password: this.state.password,
+        email: this.state.email
+      }
+
+        this.props.signup(login(signUpCredentials))
+
     } else {
       this.setState({...this.state, passwordError: true})
     }
@@ -81,4 +93,8 @@ class SignupForm extends Component {
 
 }
 
-export default SignupForm;
+const mapDispatchToProps = (dispatch) => {
+  return {signup: (credentials) => dispatch(sessionFetch(credentials, "signup"))}
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(SignupForm));

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { login, sessionFetch } from '../../actions/sessionActions'
 import { withRouter } from 'react-router'
 
-class SignupForm extends Component {
+class LoginForrm extends Component {
 
   state = { password: "", email: "" }
 
@@ -19,7 +19,6 @@ class SignupForm extends Component {
   }
 
   render(){
-    console.log(this.props);
     return (
       <div>
         <form className="container" noValidate autoComplete="off">
@@ -58,4 +57,4 @@ const mapDispatchToProps = (dispatch) => {
   return {login: (credentials) => dispatch(sessionFetch(credentials, "login"))}
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(SignupForm))
+export default withRouter(connect(null, mapDispatchToProps)(LoginForrm))

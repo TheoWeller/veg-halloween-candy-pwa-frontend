@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   render(){
-    if(!this.props.loading || this.props.authenticated){
+    if(this.props.loading === false || this.props.authenticated){
       if(this.props.authenticated && this.props.currentUser){
         return (
           <AdminHome
@@ -49,7 +49,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.session);
+  console.log("APPP PROPSS",state.session);
   return {
     currentUser: state.session.currentUser,
     authenticated: state.session.authenticated,
