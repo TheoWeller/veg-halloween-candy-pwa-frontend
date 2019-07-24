@@ -1,15 +1,16 @@
 import React from 'react';
 import {Component} from 'react';
 import Dialog from '@material-ui/core/Dialog';
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { logout } from '../../actions/sessionActions'
 
 import Container from '@material-ui/core/Container';
 import Navbar from './Navbar'
 import CreatePostForm from './CreatePostForm'
 
 class AdminHome extends Component {
-  state = {
-    modalOpen: false
-  }
+  state = { modalOpen: false }
 
   createPostModal = () => {
     return (
@@ -21,17 +22,14 @@ class AdminHome extends Component {
       >
         <Container component="div">
           <CreatePostForm
-            currentUser={this.props.currentUser}
-            token={this.props.token}
-            handleCancel={this.handleCancel}
-            handlePost={this.handlePost}
+            handleCloseModal={this.handleCloseModal}
           />
         </Container>
       </Dialog>
     )
   }
 
-  handleCancel = () => {
+  handleCloseModal = () => {
     this.setState({...this.state, modalOpen: false})
   }
 
@@ -39,9 +37,13 @@ class AdminHome extends Component {
     this.setState({...this.state, modalOpen: true})
   }
 
+  handlePostCreated = () => {
+    this.setState({...this.state, modalOpen: false})
+  }
+
 
   render(){
-    console.log(this.props);
+    console.log("ADMINHOME", this.props.userPosts.length);
     return(
       <div>
       <Navbar
@@ -54,4 +56,19 @@ class AdminHome extends Component {
   }
 }
 
-export default AdminHome;
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.session.currentUser,
+    authenticated: state.session.authenticated,
+    userPosts: state.session.userPosts,
+    loading: false
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(logout())
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AdminHome));

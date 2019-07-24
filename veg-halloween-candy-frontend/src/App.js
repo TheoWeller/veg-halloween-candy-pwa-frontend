@@ -1,21 +1,16 @@
 import React from 'react';
 import {Component, Fragment} from 'react';
 import {Switch, Route, Redirect, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
+
 
 import SignupForm from './Components/Login_Signup/SignupForm'
 import Login from './Components/Login_Signup/Login'
 import AdminHome from './Components/AdminComponents/AdminHome'
 
-import { autoLogin } from './Components/fetches'
+import { autoLogin, sessionFetch } from './actions/sessionActions'
 
 class App extends Component {
-  state = {
-    authenticated: false,
-    currentUser: "",
-    userPosts: "",
-    token: "",
-    loading: true
-  }
 
   componentDidMount(){
     this.checkForToken()
@@ -24,60 +19,47 @@ class App extends Component {
   checkForToken = () => {
     const token = localStorage.vhcToken
     if (token) {
-      autoLogin(token)
-      .then(data => {
-        if(data.status === "success"){
-          this.loginSuccess(data)
-        }//end nested conditional
-      })//end promise
-    }//end outer conditional
-  }
-
-  loginSuccess = payload => {
-    this.setState({
-      ...this.state,
-      authenticated: true,
-      loading: false,
-      currentUser: payload.current_user,
-      userPosts: payload.posts,
-      token: payload.token
-    })//end set state
-  }
-
-  logout = () => {
-    localStorage.removeItem("vhcToken")
-    this.setState({
-      authenticated: false,
-      currentUser: null,
-      userPosts: null
-    })
+      this.props.login(autoLogin(token))
+    }
   }
 
   render(){
-    if(!this.state.loading){
-      if(this.state.authenticated && this.state.currentUser){
-        console.log("APPP STATE", this.state);
+    if(this.props.loading === false || this.props.authenticated){
+      if(this.props.authenticated && this.props.currentUser){
         return (
           <AdminHome
-          currentUser={this.state.currentUser}
-          logout={this.logout}
-          token={this.state.token}
+          currentUser={this.props.currentUser}
+          token={this.props.token}
           posts={this.props.userPosts}
           />
         )
       } else {
         return (
           <Fragment>
-          <SignupForm/>
+          <SignupForm />
           <br/>
-          <Login loginSuccess={this.loginSuccess}/>
+          <Login />
           </Fragment>
-        );
-      }
+        )
+      }//end of nested "if" statement
     } else {
       return <h1>"LOADING..."</h1>
-    }
+    }//end of outer "if" statement
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  // console.log("APPP PROPSS - LENGTHHHH",state.session.userPosts.length);
+  return {
+    currentUser: state.session.currentUser,
+    authenticated: state.session.authenticated,
+    userPosts: state.session.userPosts,
+    loading: state.session.loading
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {login: (credentials) => dispatch(sessionFetch(credentials, "auto_login"))}
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

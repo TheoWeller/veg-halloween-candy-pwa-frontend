@@ -2,10 +2,11 @@ import React from 'react';
 import {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { login, sessionFetch } from '../../actions/sessionActions'
+import { withRouter } from 'react-router'
 
-import { login } from '../fetches'
-
-class SignupForm extends Component {
+class LoginForrm extends Component {
 
   state = { password: "", email: "" }
 
@@ -13,14 +14,8 @@ class SignupForm extends Component {
     this.setState({...this.state, [name]: event.target.value})
   }
 
-  onSubmit = e => {
-    login(this.state)
-    .then(data => {
-      if(data.status === "success"){
-        localStorage.setItem("vhcToken", data.token)
-        this.props.loginSuccess(data)
-      }
-    })
+  onSubmit = () => {
+    this.props.login(login(this.state.email, this.state.password))
   }
 
   render(){
@@ -58,4 +53,8 @@ class SignupForm extends Component {
 
 }
 
-export default SignupForm;
+const mapDispatchToProps = (dispatch) => {
+  return {login: (credentials) => dispatch(sessionFetch(credentials, "login"))}
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(LoginForrm))

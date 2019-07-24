@@ -2,19 +2,16 @@ import React from 'react';
 import {Component, Fragment} from 'react';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import TextField from '@material-ui/core/TextField';
-import { flexbox } from '@material-ui/system'
+import { flexbox } from '@material-ui/system';
 import Modal from '@material-ui/core/Modal';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { handlePostFetch, createPost, savePost, CREATE } from '../../actions/postActions'
+
 
 import CreatePostCard from './CreatePostCard'
-import { createPost, savePost } from '../fetches'
 import ConfirmationModal from './modals/confirmationModal'
 
-// import Card from '@material-ui/core/Card';
-// import { makeStyles } from '@material-ui/core/styles';
-// import CardActionArea from '@material-ui/core/CardActionArea';
-// import CardActions from '@material-ui/core/CardActions';
-// import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -53,32 +50,30 @@ class CreatePostForm extends Component {
     this.handlePost(this.state)
   }
 
+  //create post helper function
   handlePost = (state) => {
     delete state.postPreviewOpen
     delete state.urlError
 
     const payload = {
       ...state,
-      token: this.props.token,
-      userId: this.props.currentUser.id
+      token: this.props.token
     }
-    createPost(payload)
-    .then(data => {
-      data.status ? this.setState(initialState, this.props.handleCancel) : alert("Failed to post.")
-    })
+
+    this.props.createPost(createPost(payload))
+    this.props.handleCloseModal()
   }
 
   handleSaveClick = (state) => {
     let payload={
       ...this.state,
-      token: this.props.token,
-      userId: this.props.currentUser.id
+      token: this.props.token
     }
     delete payload.confirmationOpen
     delete payload.previewProps
     delete payload.postPreviewOpen
-    savePost(payload)
-    this.setState({...this.state, confirmationOpen: false})
+    this.props.savePost(savePost(payload))
+    this.setState({...this.state, confirmationOpen: false}, this.props.handleCloseModal)
   }
 
   handleCancelClick = () => {
@@ -97,7 +92,7 @@ class CreatePostForm extends Component {
       this.setState({
         ...this.state,
         confirmationOpen: false
-      }, this.props.handleCancel)
+      }, this.props.handleCloseModal)
     } else {
       this.setState({...this.state, confirmationOpen: false})
     }
@@ -271,4 +266,19 @@ class CreatePostForm extends Component {
     )
   }
 }
-export default CreatePostForm;
+
+const mapStateToProps = (state) => {
+  return {
+    token: state.session.token
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    savePost: (postContent) => dispatch(handlePostFetch(postContent, "save")),
+    createPost: (postContent) => dispatch(handlePostFetch(postContent, "create")),
+    dispatch: (action) => dispatch(action)
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreatePostForm));
