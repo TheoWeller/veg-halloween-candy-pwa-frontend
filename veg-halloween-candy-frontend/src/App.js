@@ -49,7 +49,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("APPP PROPSS",state.session);
+  // console.log("APPP PROPSS - LENGTHHHH",state.session.userPosts.length);
   return {
     currentUser: state.session.currentUser,
     authenticated: state.session.authenticated,

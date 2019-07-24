@@ -5,8 +5,6 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { logout } from '../../actions/sessionActions'
 
-
-
 import Container from '@material-ui/core/Container';
 import Navbar from './Navbar'
 import CreatePostForm from './CreatePostForm'
@@ -24,10 +22,9 @@ class AdminHome extends Component {
       >
         <Container component="div">
           <CreatePostForm
-            currentUser={this.props.currentUser}
-            token={this.props.token}
             handleCancel={this.handleCancel}
             handlePost={this.handlePost}
+            handlePostCreated={this.handlePostCreated}
           />
         </Container>
       </Dialog>
@@ -42,9 +39,13 @@ class AdminHome extends Component {
     this.setState({...this.state, modalOpen: true})
   }
 
+  handlePostCreated = () => {
+    this.setState({...this.state, modalOpen: false})
+  }
+
 
   render(){
-    console.log("ADMINHOME", this.props);
+    console.log("ADMINHOME", this.props.userPosts.length);
     return(
       <div>
       <Navbar

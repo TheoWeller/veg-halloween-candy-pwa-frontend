@@ -1,7 +1,7 @@
 export const initialState = {
   authenticated: false,
   currentUser: "",
-  userPosts: "",
+  userPosts: [],
   token: "",
   loading: true
 }
