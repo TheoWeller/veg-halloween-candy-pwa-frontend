@@ -6,7 +6,7 @@ import { flexbox } from '@material-ui/system';
 import Modal from '@material-ui/core/Modal';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { createPostFetch, createPost } from '../../actions/postActions'
+import { handlePostFetch, createPost, savePost, CREATE } from '../../actions/postActions'
 
 
 import CreatePostCard from './CreatePostCard'
@@ -61,21 +61,19 @@ class CreatePostForm extends Component {
     }
 
     this.props.createPost(createPost(payload))
-    this.props.handlePostCreated()
-
+    this.props.handleCloseModal()
   }
 
   handleSaveClick = (state) => {
     let payload={
       ...this.state,
-      token: this.props.token,
-      userId: this.props.currentUser.id
+      token: this.props.token
     }
     delete payload.confirmationOpen
     delete payload.previewProps
     delete payload.postPreviewOpen
-    // savePost(payload)
-    this.setState({...this.state, confirmationOpen: false})
+    this.props.savePost(savePost(payload))
+    this.setState({...this.state, confirmationOpen: false}, this.props.handleCloseModal)
   }
 
   handleCancelClick = () => {
@@ -94,7 +92,7 @@ class CreatePostForm extends Component {
       this.setState({
         ...this.state,
         confirmationOpen: false
-      }, this.props.handleCancel)
+      }, this.props.handleCloseModal)
     } else {
       this.setState({...this.state, confirmationOpen: false})
     }
@@ -277,8 +275,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    savePost: (postContent) => dispatch(createPostFetch(postContent, "save")),
-    createPost: (postContent) => dispatch(createPostFetch(postContent, "create"))
+    savePost: (postContent) => dispatch(handlePostFetch(postContent, "save")),
+    createPost: (postContent) => dispatch(handlePostFetch(postContent, "create")),
+    dispatch: (action) => dispatch(action)
   }
 }
 

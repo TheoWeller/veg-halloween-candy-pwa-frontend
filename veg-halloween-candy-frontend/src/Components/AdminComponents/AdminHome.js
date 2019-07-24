@@ -22,16 +22,14 @@ class AdminHome extends Component {
       >
         <Container component="div">
           <CreatePostForm
-            handleCancel={this.handleCancel}
-            handlePost={this.handlePost}
-            handlePostCreated={this.handlePostCreated}
+            handleCloseModal={this.handleCloseModal}
           />
         </Container>
       </Dialog>
     )
   }
 
-  handleCancel = () => {
+  handleCloseModal = () => {
     this.setState({...this.state, modalOpen: false})
   }
 

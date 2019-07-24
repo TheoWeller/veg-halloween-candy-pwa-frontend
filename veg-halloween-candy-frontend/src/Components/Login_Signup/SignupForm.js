@@ -3,7 +3,6 @@ import {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import { createUser } from '../fetches'
 import { connect } from 'react-redux';
 import { login, sessionFetch } from '../../actions/sessionActions'
 import { withRouter } from 'react-router'
