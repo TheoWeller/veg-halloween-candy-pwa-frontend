@@ -18,12 +18,11 @@ import Container from '@material-ui/core/Container';
 
 const initialState = {
   title: "",
-  contentBody: "",
-  imgUrl1: "",
-  imgUrl2: "",
-  candyName: "",
-  candyType: "",
-  referralLink: "",
+  content_body: "",
+  img_url_1: "",
+  candy_name: "",
+  candy_type: "",
+  referral_link: "",
   postPreviewOpen: false,
   previewProps: "",
   confirmationOpen: false
@@ -108,6 +107,7 @@ class CreatePostForm extends Component {
   }
 
   postPreview = (content) => {
+    debugger
     return (
       <Modal
         open={this.state.postPreviewOpen}
@@ -137,17 +137,13 @@ class CreatePostForm extends Component {
   }
 
   render(){
- console.log("FORM-STATE", this.state);
-let myWidget = window.cloudinary.createUploadWidget({
-  cloudName: 'dvlthlwhv',
-  uploadPreset: 'ppn7wtzd'}, (error, result) => {
-    if (!error && result && result.event === "success") {
-      console.log('Done! Here is the image info: ', result.info);
-      debugger
-      this.setState({ ...this.state, imgUrl1: result.info.url})
-    }
-  }
-)
+    let myWidget = window.cloudinary.createUploadWidget({
+      cloudName: 'dvlthlwhv',
+      uploadPreset: 'ppn7wtzd'}, (error, result) => {
+        if (!error && result && result.event === "success") {
+          this.setState({ ...this.state, imgUrl1: result.info.secure_url})
+        }
+    })
 
     return (
       <Fragment>
@@ -189,8 +185,8 @@ let myWidget = window.cloudinary.createUploadWidget({
               fullWidth
               multiline
               rows={10}
-              value={this.state.contentBody}
-              onChange={this.handleFormChange("contentBody")}
+              value={this.state.content_body}
+              onChange={this.handleFormChange("content_body")}
               margin="normal"
             />
             <br/>

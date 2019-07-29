@@ -8,6 +8,7 @@ import { logout } from '../../actions/sessionActions'
 import Container from '@material-ui/core/Container';
 import Navbar from './Navbar'
 import CreatePostForm from './CreatePostForm'
+import PostIndex from './PostIndex'
 
 class AdminHome extends Component {
   state = { modalOpen: false }
@@ -49,6 +50,9 @@ class AdminHome extends Component {
         logout={this.props.logout}
         handleCreatePost={this.handleCreatePost}
       />
+      <Container maxWidth="md">
+        <PostIndex />
+      </Container>
       {this.createPostModal()}
       </div>
     )
@@ -59,7 +63,7 @@ const mapStateToProps = (state) => {
   return {
     currentUser: state.session.currentUser,
     authenticated: state.session.authenticated,
-    userPosts: state.session.userPosts,
+    content: state.session.userPosts,
     loading: false
   }
 }

@@ -9,27 +9,40 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import CardHeader from '@material-ui/core/CardHeader';
+import IconButton from '@material-ui/core/IconButton';
+
+
 
 const useStyles = makeStyles({
   card: {maxWidth: "100%"}
 });
 
-const handleImg = () => {
-
-}
-
 function openInNewTab(url) {
-  var win = window.open(url, '_blank');
+  let win = window.open(url, '_blank');
   win.focus();
 }
 
 const handleShopNowClick = (url) => {
   console.log("URL", url);
   openInNewTab(url)
-  // window.location.replace(url)
+}
+
+const ifAdmin = (boolean) => {
+  return (
+    <CardHeader
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+      />
+  )
 }
 
 export default function CreatePostCard(props){
+  console.log(props);
   const classes = useStyles();
   return (
     <Card className={classes.card} raised>
@@ -37,7 +50,7 @@ export default function CreatePostCard(props){
       <CardMedia
         component="img"
         alt="desc"
-        src={props.content.imgUrl1}
+        src={props.content.image_url_1}
         title="title"
       />
           <CardContent>
@@ -45,7 +58,7 @@ export default function CreatePostCard(props){
               {props.content.title}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {props.content.contentBody}
+              {props.content.content_body}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -54,7 +67,7 @@ export default function CreatePostCard(props){
           size="large"
           color="primary"
           variant="outlined"
-          onClick={() => handleShopNowClick(props.content.referralLink)}>
+          onClick={() => handleShopNowClick(props.content.referral_link)}>
             SHOP NOW
         </Button>
       </CardActions>
