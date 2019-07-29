@@ -42,6 +42,8 @@ export const sessionFetch = (credentials, loginOrSignup) => {
       if(data.status === "success"){
         localStorage.setItem("vhcToken", data.token)
         dispatch({ type: LOGIN, payload: data })
+      } else {
+          dispatch({ type: ERROR, payload: data })
       }
         return data
       }

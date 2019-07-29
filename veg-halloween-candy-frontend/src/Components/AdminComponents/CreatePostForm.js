@@ -6,9 +6,9 @@ import { flexbox } from '@material-ui/system';
 import Modal from '@material-ui/core/Modal';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { handlePostFetch, createPost, savePost, CREATE } from '../../actions/postActions'
+import {Image, Transformation, CloudinaryContext} from 'cloudinary-react';
 
-
+import { handlePostFetch, createPost, savePost, CREATE } from '../../actions/postActions';
 import CreatePostCard from './CreatePostCard'
 import ConfirmationModal from './modals/confirmationModal'
 
@@ -132,7 +132,23 @@ class CreatePostForm extends Component {
     )
   }
 
+  showWidget = (widget) => {
+    widget.open()
+  }
+
   render(){
+ console.log("FORM-STATE", this.state);
+let myWidget = window.cloudinary.createUploadWidget({
+  cloudName: 'dvlthlwhv',
+  uploadPreset: 'ppn7wtzd'}, (error, result) => {
+    if (!error && result && result.event === "success") {
+      console.log('Done! Here is the image info: ', result.info);
+      debugger
+      this.setState({ ...this.state, imgUrl1: result.info.url})
+    }
+  }
+)
+
     return (
       <Fragment>
         {this.state.previewProps && this.postPreview(this.state.previewProps)}
@@ -157,23 +173,14 @@ class CreatePostForm extends Component {
             />
           </Container>
 
-            <br/>
-            <TextField
-              label="Image URL"
-              className="textField"
-              fullWidth
-              value={this.state.imgUrl1}
-              onChange={this.handleFormChange("imgUrl1")}
-              margin="normal"
-            />
-            <TextField
-              label="Backup image URL"
-              className="textField"
-              fullWidth
-              value={this.state.imgUrl2}
-              onChange={this.handleFormChange("imgUrl2")}
-              margin="normal"
-            />
+          <Button
+            label="upload image"
+            variant="contained"
+            onClick={() => this.showWidget(myWidget)}
+          >
+          Upload Image
+          </Button>
+
             <br/>
             <TextField
               label="Content Body"

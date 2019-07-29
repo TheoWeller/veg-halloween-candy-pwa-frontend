@@ -3,5 +3,5 @@ export const initialState = {
   currentUser: "",
   userPosts: [],
   token: "",
-  loading: true
+  loading: false
 }

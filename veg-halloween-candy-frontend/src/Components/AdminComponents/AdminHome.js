@@ -43,7 +43,6 @@ class AdminHome extends Component {
 
 
   render(){
-    console.log("ADMINHOME", this.props.userPosts.length);
     return(
       <div>
       <Navbar

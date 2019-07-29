@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   render(){
-    if(this.props.loading === false || this.props.authenticated){
+    if(!this.props.loading || this.props.authenticated){
       if(this.props.authenticated && this.props.currentUser){
         return (
           <AdminHome
