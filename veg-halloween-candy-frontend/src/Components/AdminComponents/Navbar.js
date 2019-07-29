@@ -26,7 +26,6 @@ export default function Navbar(props) {
       <div className={classes.root}>
          <AppBar position="static">
             <Toolbar>
-
                  <Button
                   edge="start"
                    className={classes.menuButton}
@@ -36,6 +35,16 @@ export default function Navbar(props) {
                    onClick={props.handleCreatePost}
                  >
                     <AddIcon /> New Post
+                 </Button>
+                 <Button
+                  edge="start"
+                   className={classes.menuButton}
+                   color="inherit"
+                   aria-label="draft new post"
+                   size="medium"
+                   onClick={"props.handleViewDrafts"}
+                 >
+                  Drafts
                  </Button>
                <Typography variant="h6" className={classes.title}>
                </Typography>
