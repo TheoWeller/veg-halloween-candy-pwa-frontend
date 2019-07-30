@@ -42,7 +42,6 @@ const ifAdmin = (boolean) => {
 }
 
 export default function CreatePostCard(props){
-  console.log(props);
   const classes = useStyles();
   return (
     <Card className={classes.card} raised>
@@ -60,7 +59,7 @@ export default function CreatePostCard(props){
               {props.content.content_body}
             </Typography>
           </CardContent>
-      <CardActions>
+      <CardActions disableSpacing>
         <Button
           size="large"
           color="primary"
@@ -68,6 +67,13 @@ export default function CreatePostCard(props){
           onClick={() => handleShopNowClick(props.content.referral_link)}>
             SHOP NOW
         </Button>
+      <CardHeader
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          }
+        />
       </CardActions>
     </Card>
   )

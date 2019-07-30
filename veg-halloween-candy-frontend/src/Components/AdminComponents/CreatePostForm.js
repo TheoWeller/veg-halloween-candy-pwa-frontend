@@ -122,10 +122,9 @@ class CreatePostForm extends Component {
           const phoneParams = 'w_450,h_250,q_auto,f_auto'
           const img1Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${desktopParams}/${result.info.path}`
           const img2Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${phoneParams}/${result.info.path}`
-          this.setState({ ...this.state, imgUrl1: img1Path, imgUrl2:  img2Path})
+          this.setState({ ...this.state, imgUrl1: img1Path, imgUrl2: img2Path})
         }
     })
-
     return (
       <Fragment>
         {this.state.previewProps && this.postPreview(this.state.previewProps)}
