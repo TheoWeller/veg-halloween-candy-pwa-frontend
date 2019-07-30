@@ -24,8 +24,6 @@ const initialState = {
   candy_name: "",
   candy_type: "",
   referral_link: "",
-  postPreviewOpen: false,
-  previewProps: "",
   confirmationOpen: false
 }
 
@@ -37,29 +35,19 @@ class CreatePostForm extends Component {
     this.setState({...this.state, [name]: event.target.value})
   }
 
-  handlePreview = (state) => {
-    this.setState({
-        ...this.state,
-        postPreviewOpen: true,
-        previewProps: state
-      }
-    )
-  }
-
   handlePostClick = (state) => {
     this.handlePost(this.state)
   }
 
   //create post helper function
   handlePost = (state) => {
-    delete state.postPreviewOpen
     delete state.urlError
 
     const payload = {
       ...state,
       token: this.props.token
     }
-
+    //payload sent to postActions.js
     this.props.createPost(createPost(payload))
     this.props.handleCloseModal()
   }
@@ -70,8 +58,6 @@ class CreatePostForm extends Component {
       token: this.props.token
     }
     delete payload.confirmationOpen
-    delete payload.previewProps
-    delete payload.postPreviewOpen
     this.props.savePost(savePost(payload))
     this.setState({...this.state, confirmationOpen: false}, this.props.handleCloseModal)
   }
@@ -112,6 +98,7 @@ class CreatePostForm extends Component {
   }
 
   render(){
+    //CLOUDINARY UPLOAD HANDLER
     let myWidget = window.cloudinary.createUploadWidget({
       cloudName: 'dvlthlwhv',
       uploadPreset: 'ppn7wtzd'}, (error, result) => {
@@ -122,7 +109,7 @@ class CreatePostForm extends Component {
           const phoneParams = 'w_450,h_250,q_auto,f_auto'
           const img1Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${desktopParams}/${result.info.path}`
           const img2Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${phoneParams}/${result.info.path}`
-          this.setState({ ...this.state, imgUrl1: img1Path, imgUrl2: img2Path})
+          this.setState({ ...this.state, img_url_1: img1Path, img_url_2: img2Path })
         }
     })
     return (

@@ -42,6 +42,7 @@ const ifAdmin = (boolean) => {
 }
 
 export default function CreatePostCard(props){
+  console.log(props);
   const classes = useStyles();
   return (
     <Card className={classes.card} raised>
