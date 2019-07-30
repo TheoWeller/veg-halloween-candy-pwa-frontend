@@ -9,7 +9,7 @@ class PostIndex extends Component {
 
   renderPosts = (post) => {
     if(!post.draft){
-      return post.map(post => <CreatePostCard content={post} />)
+      return post.map(post => <CreatePostCard handleEditPost={this.props.handleEditPost} content={post} />)
     }
   }
 

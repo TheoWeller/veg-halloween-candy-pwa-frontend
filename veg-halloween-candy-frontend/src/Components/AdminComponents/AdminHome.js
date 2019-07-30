@@ -24,6 +24,7 @@ class AdminHome extends Component {
         <Container component="div">
           <CreatePostForm
             handleCloseModal={this.handleCloseModal}
+            editPostContent={this.state.editPostContent}
           />
         </Container>
       </Dialog>
@@ -36,6 +37,10 @@ class AdminHome extends Component {
 
   handleCreatePost = () => {
     this.setState({...this.state, modalOpen: true})
+  }
+
+  handleEditPost = (postContent) => {
+    this.setState({...this.state, modalOpen: true, editPostContent: postContent})
   }
 
   handlePostCreated = () => {
@@ -51,7 +56,7 @@ class AdminHome extends Component {
         handleCreatePost={this.handleCreatePost}
       />
       <Container maxWidth="md">
-        <PostIndex />
+        <PostIndex handleEditPost={this.handleEditPost} />
       </Container>
       {this.createPostModal()}
       </div>

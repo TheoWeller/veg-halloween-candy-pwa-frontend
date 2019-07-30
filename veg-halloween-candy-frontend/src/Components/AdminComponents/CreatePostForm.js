@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {Image, Transformation, CloudinaryContext} from 'cloudinary-react';
 
-import { handlePostFetch, createPost, savePost, CREATE } from '../../actions/postActions';
+import { handlePostFetch, createPost, savePost, editPost } from '../../actions/postActions';
 import CreatePostCard from './CreatePostCard'
 import ConfirmationModal from './modals/confirmationModal'
 
@@ -19,10 +19,8 @@ import Container from '@material-ui/core/Container';
 const initialState = {
   title: "",
   content_body: "",
-  img_url_1: "",
-  img_url_2: "",
-  candy_name: "",
-  candy_type: "",
+  image_url_1: "",
+  image_url_2: "",
   referral_link: "",
   confirmationOpen: false
 }
@@ -31,12 +29,23 @@ class CreatePostForm extends Component {
 
   state = initialState
 
+  componentDidMount(){
+    let editState = {
+      ...this.props.editPostContent,
+      draft: true,
+      confirmationOpen: false,
+      editState: true
+    }
+    this.setState(editState)
+  }
+
   handleFormChange = name => event => {
     this.setState({...this.state, [name]: event.target.value})
   }
 
   handlePostClick = (state) => {
-    this.handlePost(this.state)
+    this.state.editState ? this.props.editPost(editPost(this.state)) : this.handlePost(this.state)
+    this.setState(initialState, this.props.handleCloseModal)
   }
 
   //create post helper function
@@ -109,9 +118,10 @@ class CreatePostForm extends Component {
           const phoneParams = 'w_450,h_250,q_auto,f_auto'
           const img1Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${desktopParams}/${result.info.path}`
           const img2Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${phoneParams}/${result.info.path}`
-          this.setState({ ...this.state, img_url_1: img1Path, img_url_2: img2Path })
+          this.setState({ ...this.state, image_url_1: img1Path, image_url_2: img2Path })
         }
     })
+    console.log("FORM STATE", this.state);
     return (
       <Fragment>
         {this.state.previewProps && this.postPreview(this.state.previewProps)}
@@ -135,15 +145,22 @@ class CreatePostForm extends Component {
               margin="normal"
             />
           </Container>
-
-          <Button
-            label="upload image"
-            variant="contained"
-            onClick={() => this.showWidget(myWidget)}
-          >
-          Upload Image
-          </Button>
-
+          <br/>
+            <Container
+              component="div"
+              style={{
+                "text-align": "center",
+                "width":"100%"
+              }}
+            >
+            <Button
+              label="upload image"
+              variant="contained"
+              onClick={() => this.showWidget(myWidget)}
+            >
+            Upload Image
+            </Button>
+          </Container>
             <br/>
             <TextField
               label="Content Body"
@@ -161,7 +178,7 @@ class CreatePostForm extends Component {
               label="Referral Link"
               className="textField"
               fullWidth
-              value={this.state.referralLink}
+              value={this.state.referral_link}
               onChange={this.handleFormChange("referralLink")}
               margin="normal"
             />
@@ -174,20 +191,6 @@ class CreatePostForm extends Component {
                 "justify-content":"space-between"
               }}
             >
-              <TextField
-                label="Candy Name"
-                className="textField"
-                value={this.state.candyName}
-                onChange={this.handleFormChange("candyName")}
-                margin="normal"
-              />
-              <TextField
-                label="Candy Type"
-                className="textField"
-                value={this.state.candyType}
-                onChange={this.handleFormChange("candyType")}
-                margin="normal"
-              />
             </Container>
             <br/>
             <br/>
@@ -240,6 +243,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     savePost: (postContent) => dispatch(handlePostFetch(postContent, "save")),
     createPost: (postContent) => dispatch(handlePostFetch(postContent, "create")),
+    editPost: (postContent) => dispatch(handlePostFetch(postContent, "edit")),
     dispatch: (action) => dispatch(action)
   }
 }
