@@ -20,6 +20,7 @@ const initialState = {
   title: "",
   content_body: "",
   img_url_1: "",
+  img_url_2: "",
   candy_name: "",
   candy_type: "",
   referral_link: "",
@@ -106,31 +107,6 @@ class CreatePostForm extends Component {
     )
   }
 
-  postPreview = (content) => {
-    return (
-      <Modal
-        open={this.state.postPreviewOpen}
-        fullWidth
-        onBackdropClick={this.handleModuleExitClick}
-        onEscapeKeyDown={this.handleModuleExitClick}
-      >
-        <Container
-        component="div"
-        style={{"width":"100%", "height":"100%"}}
-        >
-        <CreatePostCard content={content}/>
-          <Button
-            label="Exit"
-            variant="contained"
-            onClick={this.handleModuleExitClick}
-          >
-            Exit
-          </Button>
-        </Container>
-      </Modal>
-    )
-  }
-
   showWidget = (widget) => {
     widget.open()
   }
@@ -140,14 +116,13 @@ class CreatePostForm extends Component {
       cloudName: 'dvlthlwhv',
       uploadPreset: 'ppn7wtzd'}, (error, result) => {
         if (!error && result && result.event === "success") {
-          debugger
           //TODO: DETERMINE OPTIMAL IMAGE LINK FOR RESIZING NEEDS
           //q_auto = quality, f_auto = format, c_fill = crop & fill
-          /*
-          const pathParams = 'q_auto,f_auto,c_fill'
-          const path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${pathParams}/${result.info.path}`
-          */
-          this.setState({ ...this.state, imgUrl1: result.info.secure_url})
+          const desktopParams = 'w_900,h_500,q_auto,f_auto'
+          const phoneParams = 'w_450,h_250,q_auto,f_auto'
+          const img1Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${desktopParams}/${result.info.path}`
+          const img2Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${phoneParams}/${result.info.path}`
+          this.setState({ ...this.state, imgUrl1: img1Path, imgUrl2:  img2Path})
         }
     })
 
@@ -245,13 +220,6 @@ class CreatePostForm extends Component {
                 label="POST"
               >
               POST
-              </Button>
-              <Button
-                label="Preview"
-                variant="contained"
-                onClick={() => this.handlePreview(this.state)}
-              >
-              PREVIEW
               </Button>
               <Button
                 label="SAVE"

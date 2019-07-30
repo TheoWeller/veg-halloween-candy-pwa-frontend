@@ -46,7 +46,6 @@ export default function CreatePostCard(props){
   const classes = useStyles();
   return (
     <Card className={classes.card} raised>
-      <CardActionArea>
       <CardMedia
         component="img"
         alt="desc"
@@ -61,7 +60,6 @@ export default function CreatePostCard(props){
               {props.content.content_body}
             </Typography>
           </CardContent>
-        </CardActionArea>
       <CardActions>
         <Button
           size="large"
