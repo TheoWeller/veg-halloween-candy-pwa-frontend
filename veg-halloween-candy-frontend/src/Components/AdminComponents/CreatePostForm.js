@@ -107,7 +107,6 @@ class CreatePostForm extends Component {
   }
 
   postPreview = (content) => {
-    debugger
     return (
       <Modal
         open={this.state.postPreviewOpen}
@@ -141,6 +140,13 @@ class CreatePostForm extends Component {
       cloudName: 'dvlthlwhv',
       uploadPreset: 'ppn7wtzd'}, (error, result) => {
         if (!error && result && result.event === "success") {
+          debugger
+          //TODO: DETERMINE OPTIMAL IMAGE LINK FOR RESIZING NEEDS
+          //q_auto = quality, f_auto = format, c_fill = crop & fill
+          /*
+          const pathParams = 'q_auto,f_auto,c_fill'
+          const path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${pathParams}/${result.info.path}`
+          */
           this.setState({ ...this.state, imgUrl1: result.info.secure_url})
         }
     })
