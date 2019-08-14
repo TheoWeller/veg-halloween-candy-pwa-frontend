@@ -44,8 +44,6 @@ export const handlePostFetch = (postContent, fetchType) => {
         dispatch({type: CREATE_POST, payload: data.payload})
       } else if (data.status === "saved") {
         dispatch({ type: SAVE_POST, payload: data.payload })
-      } else if (data.status === "edited") {
-        dispatch({ type: EDIT_POST, payload: data.payload })
       } else if (data.status === "deleted") {
         dispatch({ type: DELETE_POST, payload: data.id })
       }
