@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {Image, Transformation, CloudinaryContext} from 'cloudinary-react';
 
-import { handlePostFetch, createPost, savePost, editPost } from '../../actions/postActions';
+import { handlePostFetch, createPost, savePost, editPost, deletePost } from '../../actions/postActions';
 import CreatePostCard from './CreatePostCard'
 import ConfirmationModal from './modals/confirmationModal'
 
@@ -37,6 +37,7 @@ class CreatePostForm extends Component {
       editState: true
     }
     this.setState(editState)
+    console.log("ID", this.state);
   }
 
   handleFormChange = name => event => {
@@ -44,14 +45,12 @@ class CreatePostForm extends Component {
   }
 
   handlePostClick = (state) => {
-    this.state.editState ? this.props.editPost(editPost(this.state)) : this.handlePost(this.state)
+    this.handlePost(this.state)
     this.setState(initialState, this.props.handleCloseModal)
   }
 
   //create post helper function
   handlePost = (state) => {
-    delete state.urlError
-
     const payload = {
       ...state,
       token: this.props.token
@@ -77,6 +76,12 @@ class CreatePostForm extends Component {
       confirmationOpen: true
     })
   }
+
+  handleDeletePostClick = (userId, postId) => {
+    const payload = { userId, postId }
+    this.props.deletePost(deletePost(payload));
+    this.props.handleCloseModal();
+  };
 
   handleModuleExitClick = () => {
     this.setState({...this.state, postPreviewOpen: false})
@@ -121,7 +126,6 @@ class CreatePostForm extends Component {
           this.setState({ ...this.state, image_url_1: img1Path, image_url_2: img2Path })
         }
     })
-    console.log("FORM STATE", this.state);
     return (
       <Fragment>
         {this.state.previewProps && this.postPreview(this.state.previewProps)}
@@ -179,7 +183,7 @@ class CreatePostForm extends Component {
               className="textField"
               fullWidth
               value={this.state.referral_link}
-              onChange={this.handleFormChange("referralLink")}
+              onChange={this.handleFormChange("referral_link")}
               margin="normal"
             />
             <br/>
@@ -196,8 +200,8 @@ class CreatePostForm extends Component {
             <br/>
             <Container
               component="div"
-              style={
-                {"display": "flex",
+              style={{
+                "display": "flex",
                 "justify-content":"space-between",
                 "width":"100%"
               }}
@@ -216,6 +220,13 @@ class CreatePostForm extends Component {
                 onClick={this.handleSaveClick}
               >
               SAVE
+              </Button>
+              <Button
+                label="DELETE"
+                variant="contained"
+                onClick={() => this.handleDeletePostClick(this.state.user_id, this.state.id)}
+              >
+              DELETE
               </Button>
               <Button
                 label="Save"
@@ -244,6 +255,7 @@ const mapDispatchToProps = (dispatch) => {
     savePost: (postContent) => dispatch(handlePostFetch(postContent, "save")),
     createPost: (postContent) => dispatch(handlePostFetch(postContent, "create")),
     editPost: (postContent) => dispatch(handlePostFetch(postContent, "edit")),
+    deletePost: (payload) => dispatch(handlePostFetch(payload, "delete")),
     dispatch: (action) => dispatch(action)
   }
 }

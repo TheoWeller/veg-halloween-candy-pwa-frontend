@@ -16,9 +16,6 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import CreateIcon from '@material-ui/icons/Create';
 
-
-
-
 const useStyles = makeStyles({
   card: {maxWidth: "100%"}
 });
@@ -29,37 +26,28 @@ function openInNewTab(url) {
 }
 
 const handleShopNowClick = (url) => {
-  console.log("URL", url);
   openInNewTab(url)
 }
 
-const ifAdmin = (boolean) => {
+const ifAdmin = (handleEditPost, postContent) => {
   return (
     <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <CreateIcon />
-            <DeleteForeverIcon />
-          </IconButton>
-        }
-      />
+      action={
+        <IconButton aria-label="edit post">
+          <CreateIcon onClick={() => handleEditPost(postContent)} />
+        </IconButton>
+      }
+    />
   )
 }
 
 export default function CreatePostCard(props){
-  console.log(props);
-  const classes = useStyles();
+const classes = useStyles();
   return (
     <Fragment>
       <br/>
-      <Card className={classes.card} raised>
-        <CardHeader
-            action={
-              <IconButton aria-label="edit post">
-                <CreateIcon onClick={() => props.handleEditPost(props.content)} />
-              </IconButton>
-            }
-          />
+      <Card className={classes.card} raised id={props.content.id}>
+        {props.admin && ifAdmin(props.handleEditPost, props.content)}
           <CardMedia
             component="img"
             alt="desc"

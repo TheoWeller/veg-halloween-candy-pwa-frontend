@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
 }));
-
+//TODO: handle view drafts click
 export default function Navbar(props) {
   const classes = useStyles();
     return(
@@ -27,7 +27,7 @@ export default function Navbar(props) {
          <AppBar position="static">
             <Toolbar>
                  <Button
-                  edge="start"
+                   edge="start"
                    className={classes.menuButton}
                    color="inherit"
                    aria-label="draft new post"
@@ -37,7 +37,7 @@ export default function Navbar(props) {
                     <AddIcon /> New Post
                  </Button>
                  <Button
-                  edge="start"
+                   edge="start"
                    className={classes.menuButton}
                    color="inherit"
                    aria-label="draft new post"

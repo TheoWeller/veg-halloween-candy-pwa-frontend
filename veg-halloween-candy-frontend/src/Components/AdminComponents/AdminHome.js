@@ -10,6 +10,9 @@ import Navbar from './Navbar'
 import CreatePostForm from './CreatePostForm'
 import PostIndex from './PostIndex'
 
+//
+let currentPost;
+
 class AdminHome extends Component {
   state = { modalOpen: false }
 
@@ -33,20 +36,20 @@ class AdminHome extends Component {
 
   handleCloseModal = () => {
     this.setState({...this.state, modalOpen: false})
-  }
+  };
 
   handleCreatePost = () => {
     this.setState({...this.state, modalOpen: true})
-  }
+  };
 
   handleEditPost = (postContent) => {
+    currentPost = postContent.id
     this.setState({...this.state, modalOpen: true, editPostContent: postContent})
-  }
+  };
 
   handlePostCreated = () => {
     this.setState({...this.state, modalOpen: false})
-  }
-
+  };
 
   render(){
     return(
@@ -56,7 +59,7 @@ class AdminHome extends Component {
         handleCreatePost={this.handleCreatePost}
       />
       <Container maxWidth="md">
-        <PostIndex handleEditPost={this.handleEditPost} />
+        <PostIndex admin={this.props.currentUser.admin} handleEditPost={this.handleEditPost} />
       </Container>
       {this.createPostModal()}
       </div>
