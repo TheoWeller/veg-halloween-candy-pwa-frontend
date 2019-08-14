@@ -32,8 +32,8 @@ export default (state = initialState, action) => {
       case SAVE_POST:
         return {...state, userPosts: addPostToUserPosts(action.payload)};
       case DELETE_POST:
-        const newPostsArray = state.userPosts.filter(post => post.id !== action.payload);
-        return {...state, userPosts: newPostsArray};
+        const updatedPosts = state.userPosts.filter(post => post.id !== action.payload);
+        return {...state, userPosts: updatedPosts};
     default:
       return state;
     }

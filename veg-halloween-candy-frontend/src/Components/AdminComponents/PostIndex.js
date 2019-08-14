@@ -7,17 +7,17 @@ import CreatePostCard from './CreatePostCard'
 
 class PostIndex extends Component {
 
-  renderPosts = (post) => {
-    if(!post.draft){
-      return post.map(post => {
+  renderPosts = (posts) => {
+    return posts.map(post => {
+      if(!post.draft){
         return(
         <CreatePostCard
           handleEditPost={this.props.handleEditPost}
           content={post}
           admin={this.props.admin}
         />
-      )})
-    }
+      )}
+    })
   }
 
   render(){
@@ -33,9 +33,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostIndex));
+export default withRouter(connect(mapStateToProps)(PostIndex));
