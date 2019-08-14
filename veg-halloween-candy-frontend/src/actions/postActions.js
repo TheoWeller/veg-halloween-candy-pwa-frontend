@@ -26,7 +26,6 @@ const deletePost = (payload) => {
 FETCHES
 ****************************************************************/
 export const handlePostFetch = (postContent, fetchType) => {
-  //TODO: EDIT AND SAVE POST NEED DIFFERENTIATING
   return (dispatch) => {
     dispatch( { type: LOADING } );
     fetch(`http://localhost:3000/api/v1/posts/${fetchType}`, {

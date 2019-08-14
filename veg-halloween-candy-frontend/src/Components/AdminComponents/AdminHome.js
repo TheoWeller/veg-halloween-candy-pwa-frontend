@@ -14,7 +14,8 @@ import PostIndex from './PostIndex'
 let currentPost;
 
 class AdminHome extends Component {
-  state = { modalOpen: false }
+  //callback passed down to navbar when clicked drafts are rendered in postIndex
+  state = { modalOpen: false, draftView: false }
 
   createPostModal = () => {
     return (
@@ -51,15 +52,24 @@ class AdminHome extends Component {
     this.setState({...this.state, modalOpen: false})
   };
 
+  handleDraftClick = () => {
+    this.setState({...this.state, draftView: !this.state.draftView})
+  }
+
   render(){
     return(
       <div>
       <Navbar
         logout={this.props.logout}
         handleCreatePost={this.handleCreatePost}
+        handleDraftClick={this.handleDraftClick}
       />
       <Container maxWidth="md">
-        <PostIndex admin={this.props.currentUser.admin} handleEditPost={this.handleEditPost} />
+        <PostIndex
+          admin={this.props.currentUser.admin}
+          handleEditPost={this.handleEditPost}
+          draftView={this.state.draftView}
+        />
       </Container>
       {this.createPostModal()}
       </div>
