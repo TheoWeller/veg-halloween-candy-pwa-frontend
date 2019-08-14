@@ -8,12 +8,19 @@ import CreatePostCard from './CreatePostCard'
 class PostIndex extends Component {
 
   renderPosts = (post) => {
-    return post.map(post => <CreatePostCard content={post} />)
+    if(!post.draft){
+      return post.map(post => {
+        return(
+        <CreatePostCard
+          handleEditPost={this.props.handleEditPost}
+          content={post}
+          admin={this.props.admin}
+        />
+      )})
+    }
   }
 
   render(){
-    console.log("PROPZ", this.props);
-
     return (
       this.renderPosts(this.props.posts)
     )

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {Image, Transformation, CloudinaryContext} from 'cloudinary-react';
 
-import { handlePostFetch, createPost, savePost, CREATE } from '../../actions/postActions';
+import { handlePostFetch, createPost, savePost, editPost, deletePost } from '../../actions/postActions';
 import CreatePostCard from './CreatePostCard'
 import ConfirmationModal from './modals/confirmationModal'
 
@@ -19,12 +19,9 @@ import Container from '@material-ui/core/Container';
 const initialState = {
   title: "",
   content_body: "",
-  img_url_1: "",
-  candy_name: "",
-  candy_type: "",
+  image_url_1: "",
+  image_url_2: "",
   referral_link: "",
-  postPreviewOpen: false,
-  previewProps: "",
   confirmationOpen: false
 }
 
@@ -32,33 +29,33 @@ class CreatePostForm extends Component {
 
   state = initialState
 
+  componentDidMount(){
+    let editState = {
+      ...this.props.editPostContent,
+      draft: true,
+      confirmationOpen: false,
+      editState: true
+    }
+    this.setState(editState)
+    console.log("ID", this.state);
+  }
+
   handleFormChange = name => event => {
     this.setState({...this.state, [name]: event.target.value})
   }
 
-  handlePreview = (state) => {
-    this.setState({
-        ...this.state,
-        postPreviewOpen: true,
-        previewProps: state
-      }
-    )
-  }
-
   handlePostClick = (state) => {
     this.handlePost(this.state)
+    this.setState(initialState, this.props.handleCloseModal)
   }
 
   //create post helper function
   handlePost = (state) => {
-    delete state.postPreviewOpen
-    delete state.urlError
-
     const payload = {
       ...state,
       token: this.props.token
     }
-
+    //payload sent to postActions.js
     this.props.createPost(createPost(payload))
     this.props.handleCloseModal()
   }
@@ -69,8 +66,6 @@ class CreatePostForm extends Component {
       token: this.props.token
     }
     delete payload.confirmationOpen
-    delete payload.previewProps
-    delete payload.postPreviewOpen
     this.props.savePost(savePost(payload))
     this.setState({...this.state, confirmationOpen: false}, this.props.handleCloseModal)
   }
@@ -81,6 +76,12 @@ class CreatePostForm extends Component {
       confirmationOpen: true
     })
   }
+
+  handleDeletePostClick = (userId, postId) => {
+    const payload = { userId, postId }
+    this.props.deletePost(deletePost(payload));
+    this.props.handleCloseModal();
+  };
 
   handleModuleExitClick = () => {
     this.setState({...this.state, postPreviewOpen: false})
@@ -106,45 +107,25 @@ class CreatePostForm extends Component {
     )
   }
 
-  postPreview = (content) => {
-    debugger
-    return (
-      <Modal
-        open={this.state.postPreviewOpen}
-        fullWidth
-        onBackdropClick={this.handleModuleExitClick}
-        onEscapeKeyDown={this.handleModuleExitClick}
-      >
-        <Container
-        component="div"
-        style={{"width":"100%", "height":"100%"}}
-        >
-        <CreatePostCard content={content}/>
-          <Button
-            label="Exit"
-            variant="contained"
-            onClick={this.handleModuleExitClick}
-          >
-            Exit
-          </Button>
-        </Container>
-      </Modal>
-    )
-  }
-
   showWidget = (widget) => {
     widget.open()
   }
 
   render(){
+    //CLOUDINARY UPLOAD HANDLER
     let myWidget = window.cloudinary.createUploadWidget({
       cloudName: 'dvlthlwhv',
       uploadPreset: 'ppn7wtzd'}, (error, result) => {
         if (!error && result && result.event === "success") {
-          this.setState({ ...this.state, imgUrl1: result.info.secure_url})
+          //TODO: DETERMINE OPTIMAL IMAGE LINK FOR RESIZING NEEDS
+          //q_auto = quality, f_auto = format, c_fill = crop & fill
+          const desktopParams = 'w_900,h_500,q_auto,f_auto'
+          const phoneParams = 'w_450,h_250,q_auto,f_auto'
+          const img1Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${desktopParams}/${result.info.path}`
+          const img2Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${phoneParams}/${result.info.path}`
+          this.setState({ ...this.state, image_url_1: img1Path, image_url_2: img2Path })
         }
     })
-
     return (
       <Fragment>
         {this.state.previewProps && this.postPreview(this.state.previewProps)}
@@ -168,15 +149,22 @@ class CreatePostForm extends Component {
               margin="normal"
             />
           </Container>
-
-          <Button
-            label="upload image"
-            variant="contained"
-            onClick={() => this.showWidget(myWidget)}
-          >
-          Upload Image
-          </Button>
-
+          <br/>
+            <Container
+              component="div"
+              style={{
+                "text-align": "center",
+                "width":"100%"
+              }}
+            >
+            <Button
+              label="upload image"
+              variant="contained"
+              onClick={() => this.showWidget(myWidget)}
+            >
+            Upload Image
+            </Button>
+          </Container>
             <br/>
             <TextField
               label="Content Body"
@@ -194,8 +182,8 @@ class CreatePostForm extends Component {
               label="Referral Link"
               className="textField"
               fullWidth
-              value={this.state.referralLink}
-              onChange={this.handleFormChange("referralLink")}
+              value={this.state.referral_link}
+              onChange={this.handleFormChange("referral_link")}
               margin="normal"
             />
             <br/>
@@ -207,27 +195,13 @@ class CreatePostForm extends Component {
                 "justify-content":"space-between"
               }}
             >
-              <TextField
-                label="Candy Name"
-                className="textField"
-                value={this.state.candyName}
-                onChange={this.handleFormChange("candyName")}
-                margin="normal"
-              />
-              <TextField
-                label="Candy Type"
-                className="textField"
-                value={this.state.candyType}
-                onChange={this.handleFormChange("candyType")}
-                margin="normal"
-              />
             </Container>
             <br/>
             <br/>
             <Container
               component="div"
-              style={
-                {"display": "flex",
+              style={{
+                "display": "flex",
                 "justify-content":"space-between",
                 "width":"100%"
               }}
@@ -241,18 +215,18 @@ class CreatePostForm extends Component {
               POST
               </Button>
               <Button
-                label="Preview"
-                variant="contained"
-                onClick={() => this.handlePreview(this.state)}
-              >
-              PREVIEW
-              </Button>
-              <Button
                 label="SAVE"
                 variant="contained"
                 onClick={this.handleSaveClick}
               >
               SAVE
+              </Button>
+              <Button
+                label="DELETE"
+                variant="contained"
+                onClick={() => this.handleDeletePostClick(this.state.user_id, this.state.id)}
+              >
+              DELETE
               </Button>
               <Button
                 label="Save"
@@ -280,6 +254,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     savePost: (postContent) => dispatch(handlePostFetch(postContent, "save")),
     createPost: (postContent) => dispatch(handlePostFetch(postContent, "create")),
+    editPost: (postContent) => dispatch(handlePostFetch(postContent, "edit")),
+    deletePost: (payload) => dispatch(handlePostFetch(payload, "delete")),
     dispatch: (action) => dispatch(action)
   }
 }

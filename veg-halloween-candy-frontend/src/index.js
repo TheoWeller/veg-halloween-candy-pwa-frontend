@@ -10,7 +10,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/index'
 import history from './history';
 
-let store = createStore(rootReducer, applyMiddleware(thunk))
+export let store = createStore(rootReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <div id="app-container">

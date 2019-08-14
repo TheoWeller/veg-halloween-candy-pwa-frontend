@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 export default function ConfirmationModal(props){
   return (
     <Dialog open={props.isOpen} aria-labelledby="confirmation pop up">
-      <DialogTitle id="simple-dialog-title">Discard post?</DialogTitle>
+      <DialogTitle id="simple-dialog-title">Discard?</DialogTitle>
         <Button
           label="Yes"
           variant="contained"
