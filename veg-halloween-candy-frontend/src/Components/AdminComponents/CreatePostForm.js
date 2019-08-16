@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {Image, Transformation, CloudinaryContext} from 'cloudinary-react';
 
-import { handlePostFetch, createPost, savePost, editPost, deletePost } from '../../actions/postActions';
+import { handlePostFetch, createPost, saveDraft, editPost, deletePost } from '../../actions/postActions';
 import CreatePostCard from './CreatePostCard'
 import ConfirmationModal from './modals/confirmationModal'
 
@@ -60,13 +60,12 @@ class CreatePostForm extends Component {
     this.props.handleCloseModal()
   }
 
-  handleSaveClick = (state) => {
-    let payload={
-      ...this.state,
-      token: this.props.token
-    }
+  handleSaveClick = () => {
+    let payload={ ...this.state, token: this.props.token }
     delete payload.confirmationOpen
-    this.props.savePost(savePost(payload))
+
+    //save or edit conditional
+    this.props.editPostContent.draft ? this.props.savePost(saveDraft(payload)) : this.props.editPost(editPost(payload))
     this.setState({...this.state, confirmationOpen: false}, this.props.handleCloseModal)
   }
 

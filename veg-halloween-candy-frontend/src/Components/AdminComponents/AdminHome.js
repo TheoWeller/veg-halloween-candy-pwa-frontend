@@ -10,8 +10,6 @@ import Navbar from './Navbar'
 import CreatePostForm from './CreatePostForm'
 import PostIndex from './PostIndex'
 
-//
-let currentPost;
 
 class AdminHome extends Component {
   //callback passed down to navbar when clicked drafts are rendered in postIndex
@@ -44,7 +42,6 @@ class AdminHome extends Component {
   };
 
   handleEditPost = (postContent) => {
-    currentPost = postContent.id
     this.setState({...this.state, modalOpen: true, editPostContent: postContent})
   };
 

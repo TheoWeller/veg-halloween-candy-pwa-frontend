@@ -1,4 +1,4 @@
-export { DELETE_POST, ERROR, LOADING, CREATE_POST, SAVE_POST, EDIT_POST, createPost, savePost, editPost, deletePost };
+export { DELETE_POST, ERROR, LOADING, CREATE_POST, SAVE_POST, EDIT_POST, createPost, saveDraft, editPost, deletePost };
 
 const ERROR = 'ERROR';
 const LOADING = 'LOADING';
@@ -11,7 +11,7 @@ const createPost = (postContent) => {
   return {type: CREATE_POST, payload: postContent};
 }
 
-const savePost = (postContent) => {
+const saveDraft = (postContent) => {
   return {type: SAVE_POST, payload: postContent};
 }
 
@@ -40,11 +40,13 @@ export const handlePostFetch = (postContent, fetchType) => {
     .then(response => response.json())
     .then(data => {
       if(data.status === "success"){
-        dispatch({type: CREATE_POST, payload: data.payload})
+          dispatch({type: CREATE_POST, payload: data.payload})
       } else if (data.status === "saved") {
-        dispatch({ type: SAVE_POST, payload: data.payload })
+          dispatch({ type: SAVE_POST, payload: data.payload })
+      } else if (data.status === "edited") {
+          dispatch({ type: EDIT_POST, payload: data.payload })
       } else if (data.status === "deleted") {
-        dispatch({ type: DELETE_POST, payload: data.id })
+          dispatch({ type: DELETE_POST, payload: data.id })
       }
       return data;
     })

@@ -1,5 +1,5 @@
 import { LOGIN, LOGOUT, LOADING, ERROR } from '../actions/sessionActions'
-import { DELETE_POST, CREATE_POST, SAVE_POST } from '../actions/postActions'
+import { DELETE_POST, CREATE_POST, SAVE_POST, EDIT_POST} from '../actions/postActions'
 import { initialState } from  './initialState'
 
 export default (state = initialState, action) => {
@@ -31,6 +31,11 @@ export default (state = initialState, action) => {
         return {...state, userPosts: addPostToUserPosts(action.payload)};
       case SAVE_POST:
         return {...state, userPosts: addPostToUserPosts(action.payload)};
+      case EDIT_POST:
+        const updatedPostsArray = state.userPosts.filter(post => post.id !== action.payload.id)
+        updatedPostsArray.push(action.payload)
+        //TODO: Replace edited element at same index
+        return {...state, userPosts: updatedPostsArray};
       case DELETE_POST:
         const updatedPosts = state.userPosts.filter(post => post.id !== action.payload);
         return {...state, userPosts: updatedPosts};

@@ -6,23 +6,10 @@ import { withRouter } from 'react-router-dom';
 import CreatePostCard from './CreatePostCard'
 
 class PostIndex extends Component {
-
+  //renderPosts works off of draftView to render posts
   renderPosts = (posts) => {
     return posts.map(post => {
-      if(!post.draft){
-        return(
-        <CreatePostCard
-          handleEditPost={this.props.handleEditPost}
-          content={post}
-          admin={this.props.admin}
-        />
-      )}
-    })
-  }
-
-  renderDrafts = (posts) => {
-    return posts.map(post => {
-      if(post.draft){
+      if(post.draft === this.props.draftView){
         return(
         <CreatePostCard
           handleEditPost={this.props.handleEditPost}
@@ -34,11 +21,9 @@ class PostIndex extends Component {
   }
 
   render(){
-    return (
-      this.props.draftView ? this.renderDrafts(this.props.posts) : this.renderPosts(this.props.posts)
-    )
-  }
-}
+    return this.renderPosts(this.props.posts)
+  }//end render
+}//end PostIndex
 
 const mapStateToProps = (state) => {
   return {
