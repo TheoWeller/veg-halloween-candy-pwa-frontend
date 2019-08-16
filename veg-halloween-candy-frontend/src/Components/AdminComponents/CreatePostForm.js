@@ -11,22 +11,39 @@ import {Image, Transformation, CloudinaryContext} from 'cloudinary-react';
 import { handlePostFetch, createPost, saveDraft, editPost, deletePost } from '../../actions/postActions';
 import CreatePostCard from './CreatePostCard'
 import ConfirmationModal from './modals/confirmationModal'
-
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import FormControl from '@material-ui/core/FormControl';
+import FilledInput from '@material-ui/core/FilledInput';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+
+import { makeStyles } from '@material-ui/core/styles';
+
 
 const initialState = {
   title: "",
   content_body: "",
+  rank: "",
   image_url_1: "",
   image_url_2: "",
   referral_link: "",
   confirmationOpen: false
 }
 
-class CreatePostForm extends Component {
+const useStyles = makeStyles(theme => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  }
+}));
 
+class CreatePostForm extends Component {
   state = initialState
 
   componentDidMount(){
@@ -39,6 +56,8 @@ class CreatePostForm extends Component {
     this.setState(editState)
     console.log("ID", this.state);
   }
+
+  classes = () => useStyles();
 
   handleFormChange = name => event => {
     this.setState({...this.state, [name]: event.target.value})
@@ -152,8 +171,10 @@ class CreatePostForm extends Component {
             <Container
               component="div"
               style={{
-                "text-align": "center",
-                "width":"100%"
+                "width":"100%",
+                "display":"flex",
+                "align-items":"center",
+                "justify-content":"space-evenly",
               }}
             >
             <Button
@@ -163,6 +184,23 @@ class CreatePostForm extends Component {
             >
             Upload Image
             </Button>
+      <FormControl className={this.classes.formControl} style={{"margin-bottom":"3%"}}>
+        <InputLabel htmlFor="age-native-simple">RANK</InputLabel>
+        <Select
+          native
+          value={this.state.rank}
+          onChange={() => this.handleFormChange('rank')}
+          inputProps={{
+            name: 'rank',
+            id: 'age-native-simple',
+          }}
+        >
+          <option value="" />
+          <option value={10}>Ten</option>
+          <option value={20}>Twenty</option>
+          <option value={30}>Thirty</option>
+        </Select>
+      </FormControl>
           </Container>
             <br/>
             <TextField
