@@ -17,7 +17,6 @@ import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
 import FilledInput from '@material-ui/core/FilledInput';
 import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -60,6 +59,7 @@ class CreatePostForm extends Component {
   classes = () => useStyles();
 
   handleFormChange = name => event => {
+    debugger
     this.setState({...this.state, [name]: event.target.value})
   }
 
@@ -75,6 +75,7 @@ class CreatePostForm extends Component {
       token: this.props.token
     }
     //payload sent to postActions.js
+    debugger
     this.props.createPost(createPost(payload))
     this.props.handleCloseModal()
   }
@@ -82,7 +83,7 @@ class CreatePostForm extends Component {
   handleSaveClick = () => {
     let payload={ ...this.state, token: this.props.token }
     delete payload.confirmationOpen
-
+    debugger
     //save or edit conditional
     this.props.editPostContent.draft ? this.props.savePost(saveDraft(payload)) : this.props.editPost(editPost(payload))
     this.setState({...this.state, confirmationOpen: false}, this.props.handleCloseModal)
@@ -123,6 +124,18 @@ class CreatePostForm extends Component {
         cancelPost={this.cancelPost}
       />
     )
+  }
+
+  determineRankSelectOptions = (posts) => {
+    const activePosts = posts.filter(post => !post.draft)
+    //creates array of possible rank select options
+    const printMe = [...Array(activePosts.length + 2).keys()];
+    printMe.shift()
+    return printMe.map(val => {
+      return <option value={val}>{val}</option>
+    })
+
+    debugger;
   }
 
   showWidget = (widget) => {
@@ -172,9 +185,9 @@ class CreatePostForm extends Component {
               component="div"
               style={{
                 "width":"100%",
-                "display":"flex",
-                "align-items":"center",
-                "justify-content":"space-evenly",
+                display: "grid",
+                alignItems: "center",
+                justifyItems: "center"
               }}
             >
             <Button
@@ -184,21 +197,20 @@ class CreatePostForm extends Component {
             >
             Upload Image
             </Button>
-      <FormControl className={this.classes.formControl} style={{"margin-bottom":"3%"}}>
+
+      <FormControl className={this.classes.formControl} style={{"margin-top":"3%", "min-width":"5em"}}>
         <InputLabel htmlFor="age-native-simple">RANK</InputLabel>
         <Select
           native
           value={this.state.rank}
-          onChange={() => this.handleFormChange('rank')}
+          onChange={this.handleFormChange('rank')}
           inputProps={{
             name: 'rank',
             id: 'age-native-simple',
           }}
         >
           <option value="" />
-          <option value={10}>Ten</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option>
+          {this.determineRankSelectOptions(this.props.posts)}
         </Select>
       </FormControl>
           </Container>
@@ -283,7 +295,8 @@ class CreatePostForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.session.token
+    token: state.session.token,
+    posts: state.session.userPosts
   }
 }
 
