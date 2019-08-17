@@ -13,7 +13,7 @@ import PostIndex from './PostIndex'
 
 class AdminHome extends Component {
   //callback passed down to navbar when clicked drafts are rendered in postIndex
-  state = { modalOpen: false, draftView: false }
+  state = { modalOpen: false, draftView: false, newPost: false }
 
   createPostModal = () => {
     return (
@@ -27,6 +27,7 @@ class AdminHome extends Component {
           <CreatePostForm
             handleCloseModal={this.handleCloseModal}
             editPostContent={this.state.editPostContent}
+            newPost={this.state.newPost}
           />
         </Container>
       </Dialog>
@@ -38,7 +39,7 @@ class AdminHome extends Component {
   };
 
   handleCreatePost = () => {
-    this.setState({...this.state, modalOpen: true})
+    this.setState({...this.state, modalOpen: true, newPost: true})
   };
 
   handleEditPost = (postContent) => {

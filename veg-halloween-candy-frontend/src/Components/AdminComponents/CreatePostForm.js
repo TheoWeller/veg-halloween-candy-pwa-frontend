@@ -52,7 +52,7 @@ class CreatePostForm extends Component {
       confirmationOpen: false,
       editState: true
     }
-    this.setState(editState, () => console.log("EDITTTTTTT",this.state.rank))
+    this.props.newPost ? this.setState(initialState) : this.setState(editState)
 
   }
 
@@ -206,6 +206,7 @@ class CreatePostForm extends Component {
             id: 'age-native-simple',
           }}
         >
+          {this.props.newPost && <option value={""}></option>}
           {this.determineRankSelectOptions(this.props.posts)}
         </Select>
       </FormControl>
