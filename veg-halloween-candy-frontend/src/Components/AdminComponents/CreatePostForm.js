@@ -52,14 +52,13 @@ class CreatePostForm extends Component {
       confirmationOpen: false,
       editState: true
     }
-    this.setState(editState)
-    console.log("ID", this.state);
+    this.setState(editState, () => console.log("EDITTTTTTT",this.state.rank))
+
   }
 
   classes = () => useStyles();
 
   handleFormChange = name => event => {
-    debugger
     this.setState({...this.state, [name]: event.target.value})
   }
 
@@ -134,8 +133,6 @@ class CreatePostForm extends Component {
     return printMe.map(val => {
       return <option value={val}>{val}</option>
     })
-
-    debugger;
   }
 
   showWidget = (widget) => {
@@ -209,7 +206,6 @@ class CreatePostForm extends Component {
             id: 'age-native-simple',
           }}
         >
-          <option value="" />
           {this.determineRankSelectOptions(this.props.posts)}
         </Select>
       </FormControl>
@@ -247,44 +243,43 @@ class CreatePostForm extends Component {
             </Container>
             <br/>
             <br/>
-            <Container
-              component="div"
+              <div
               style={{
-                "display": "flex",
-                "justify-content":"space-between",
-                "width":"100%"
+                "display": "grid",
+                "grid-template-columns": "repeat(auto-fit, minmax(5em, 1fr))",
+                "grid-gap": "1rem"
               }}
-            >
-              <Button
-                variant="contained"
-                className={"Button"}
-                onClick={() => this.handlePostClick(this.state)}
-                label="POST"
               >
-              POST
-              </Button>
-              <Button
-                label="SAVE"
-                variant="contained"
-                onClick={this.handleSaveClick}
-              >
-              SAVE
-              </Button>
-              <Button
-                label="DELETE"
-                variant="contained"
-                onClick={() => this.handleDeletePostClick(this.state.user_id, this.state.id)}
-              >
-              DELETE
-              </Button>
-              <Button
-                label="Save"
-                variant="contained"
-                onClick={this.handleCancelClick}
-              >
-              CANCEL
-              </Button>
-            </Container>
+                <Button
+                  variant="contained"
+                  className={"Button"}
+                  onClick={() => this.handlePostClick(this.state)}
+                  label="POST"
+                >
+                POST
+                </Button>
+                <Button
+                  label="SAVE"
+                  variant="contained"
+                  onClick={this.handleSaveClick}
+                >
+                SAVE
+                </Button>
+                <Button
+                  label="DELETE"
+                  variant="contained"
+                  onClick={() => this.handleDeletePostClick(this.state.user_id, this.state.id)}
+                >
+                DELETE
+                </Button>
+                <Button
+                  label="Save"
+                  variant="contained"
+                  onClick={this.handleCancelClick}
+                >
+                CANCEL
+                </Button>
+              </div>
             <br/>
             <br/>
             </Container>

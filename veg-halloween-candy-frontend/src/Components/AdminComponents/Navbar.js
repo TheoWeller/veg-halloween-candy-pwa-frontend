@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 export default function Navbar(props) {
   const classes = useStyles();
     return(
-      <div className={classes.root}>
+      <div className={classes.root} id={"navbar-container"}>
          <AppBar position="static">
             <Toolbar>
                  <Button
