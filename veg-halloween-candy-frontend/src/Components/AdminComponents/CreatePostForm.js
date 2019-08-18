@@ -74,7 +74,6 @@ class CreatePostForm extends Component {
       token: this.props.token
     }
     //payload sent to postActions.js
-    debugger
     this.props.createPost(createPost(payload))
     this.props.handleCloseModal()
   }
@@ -82,7 +81,6 @@ class CreatePostForm extends Component {
   handleSaveClick = () => {
     let payload={ ...this.state, token: this.props.token }
     delete payload.confirmationOpen
-    debugger
     //save or edit conditional
     this.props.editPostContent.draft ? this.props.savePost(saveDraft(payload)) : this.props.editPost(editPost(payload))
     this.setState({...this.state, confirmationOpen: false}, this.props.handleCloseModal)

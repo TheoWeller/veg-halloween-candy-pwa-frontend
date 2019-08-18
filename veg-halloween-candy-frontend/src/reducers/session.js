@@ -28,14 +28,11 @@ export default (state = initialState, action) => {
     case ERROR:
       return { initialState }
       case CREATE_POST:
-        return {...state, userPosts: addPostToUserPosts(action.payload)};
+        return {...state, userPosts: action.payload};
       case SAVE_POST:
         return {...state, userPosts: addPostToUserPosts(action.payload)};
       case EDIT_POST:
-        const updatedPostsArray = state.userPosts.filter(post => post.id !== action.payload.id)
-        updatedPostsArray.push(action.payload)
-        //TODO: Replace edited element at same index
-        return {...state, userPosts: updatedPostsArray};
+        return {...state, userPosts: action.payload};
       case DELETE_POST:
         const updatedPosts = state.userPosts.filter(post => post.id !== action.payload);
         return {...state, userPosts: updatedPosts};
