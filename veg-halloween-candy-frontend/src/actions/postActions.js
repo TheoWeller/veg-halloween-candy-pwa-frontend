@@ -23,7 +23,7 @@ const deletePost = (payload) => {
   return {type: DELETE_POST, payload: payload};
 }
 /****************************************************************
-FETCHES
+FETCH
 ****************************************************************/
 export const handlePostFetch = (postContent, fetchType) => {
   return (dispatch) => {
@@ -46,7 +46,7 @@ export const handlePostFetch = (postContent, fetchType) => {
       } else if (data.status === "edited") {
           dispatch({ type: EDIT_POST, payload: data.payload })
       } else if (data.status === "deleted") {
-          dispatch({ type: DELETE_POST, payload: data.id })
+          dispatch({ type: DELETE_POST, payload: data.payload })
       }
       return data;
     })

@@ -43,6 +43,7 @@ class AdminHome extends Component {
   };
 
   handleEditPost = (postContent) => {
+    debugger
     this.setState({...this.state, modalOpen: true, editPostContent: postContent})
   };
 
