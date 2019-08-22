@@ -30,7 +30,6 @@ const handleShopNowClick = (url) => {
 }
 
 const ifAdmin = (handleEditPost, postContent) => {
-  console.log("POSTSSSSS CONTENTTYTYRTT",postContent);
   return (
     <CardHeader
       action={

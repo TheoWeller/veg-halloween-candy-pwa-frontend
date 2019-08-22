@@ -32,10 +32,8 @@ export default (state = initialState, action) => {
       case SAVE_POST:
         return {...state, userPosts: addPostToUserPosts(action.payload)};
       case EDIT_POST:
-      debugger
         return {...state, userPosts: action.payload};
       case DELETE_POST:
-      debugger
         return {...state, userPosts: action.payload};
     default:
       return state;
