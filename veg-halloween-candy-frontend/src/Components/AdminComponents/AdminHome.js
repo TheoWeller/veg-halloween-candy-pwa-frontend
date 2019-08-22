@@ -10,11 +10,10 @@ import Navbar from './Navbar'
 import CreatePostForm from './CreatePostForm'
 import PostIndex from './PostIndex'
 
-//
-let currentPost;
 
 class AdminHome extends Component {
-  state = { modalOpen: false }
+  //callback passed down to navbar when clicked drafts are rendered in postIndex
+  state = { modalOpen: false, draftView: false, newPost: false, editPostContent: {} }
 
   createPostModal = () => {
     return (
@@ -28,6 +27,7 @@ class AdminHome extends Component {
           <CreatePostForm
             handleCloseModal={this.handleCloseModal}
             editPostContent={this.state.editPostContent}
+            newPost={this.state.newPost}
           />
         </Container>
       </Dialog>
@@ -39,11 +39,10 @@ class AdminHome extends Component {
   };
 
   handleCreatePost = () => {
-    this.setState({...this.state, modalOpen: true})
+    this.setState({...this.state, modalOpen: true, newPost: true})
   };
 
   handleEditPost = (postContent) => {
-    currentPost = postContent.id
     this.setState({...this.state, modalOpen: true, editPostContent: postContent})
   };
 
@@ -51,15 +50,24 @@ class AdminHome extends Component {
     this.setState({...this.state, modalOpen: false})
   };
 
+  handleDraftClick = () => {
+    this.setState({...this.state, draftView: !this.state.draftView})
+  }
+
   render(){
     return(
       <div>
       <Navbar
         logout={this.props.logout}
         handleCreatePost={this.handleCreatePost}
+        handleDraftClick={this.handleDraftClick}
       />
       <Container maxWidth="md">
-        <PostIndex admin={this.props.currentUser.admin} handleEditPost={this.handleEditPost} />
+        <PostIndex
+          admin={this.props.currentUser.admin}
+          handleEditPost={this.handleEditPost}
+          draftView={this.state.draftView}
+        />
       </Container>
       {this.createPostModal()}
       </div>

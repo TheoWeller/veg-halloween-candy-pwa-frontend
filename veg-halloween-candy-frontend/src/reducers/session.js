@@ -1,8 +1,15 @@
 import { LOGIN, LOGOUT, LOADING, ERROR } from '../actions/sessionActions'
-import { DELETE_POST, CREATE_POST, SAVE_POST, EDIT_POST } from '../actions/postActions'
+import { DELETE_POST, CREATE_POST, SAVE_POST, EDIT_POST} from '../actions/postActions'
 import { initialState } from  './initialState'
 
 export default (state = initialState, action) => {
+  //add post helper
+  const addPostToUserPosts = (post) => {
+    const updatedUserPosts = state.userPosts;
+    updatedUserPosts.push(post);
+    return updatedUserPosts;
+  }
+
   switch(action.type) {
     case LOGIN:
       return {
@@ -21,15 +28,13 @@ export default (state = initialState, action) => {
     case ERROR:
       return { initialState }
       case CREATE_POST:
-        return {...state, userPosts: state.userPosts.push(action.payload)};
+        return {...state, userPosts: action.payload};
       case SAVE_POST:
-      debugger
-        return {...state, userPosts: state.userPosts.push(action.payload)};
+        return {...state, userPosts: addPostToUserPosts(action.payload)};
       case EDIT_POST:
-        return {...state, userPosts: state.userPosts.push(action.payload)};
+        return {...state, userPosts: action.payload};
       case DELETE_POST:
-        const newPostsArray = state.userPosts.filter(post => post.id !== action.payload);
-        return {...state, userPosts: newPostsArray};
+        return {...state, userPosts: action.payload};
     default:
       return state;
     }

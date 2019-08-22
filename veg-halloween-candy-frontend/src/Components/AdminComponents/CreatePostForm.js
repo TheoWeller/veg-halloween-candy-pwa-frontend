@@ -8,25 +8,41 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {Image, Transformation, CloudinaryContext} from 'cloudinary-react';
 
-import { handlePostFetch, createPost, savePost, editPost, deletePost } from '../../actions/postActions';
+import { handlePostFetch, createPost, saveDraft, editPost, deletePost } from '../../actions/postActions';
 import CreatePostCard from './CreatePostCard'
 import ConfirmationModal from './modals/confirmationModal'
-
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import FormControl from '@material-ui/core/FormControl';
+import FilledInput from '@material-ui/core/FilledInput';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+
+import { makeStyles } from '@material-ui/core/styles';
+
 
 const initialState = {
   title: "",
   content_body: "",
+  rank: "",
   image_url_1: "",
   image_url_2: "",
   referral_link: "",
   confirmationOpen: false
 }
 
-class CreatePostForm extends Component {
+const useStyles = makeStyles(theme => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  }
+}));
 
+class CreatePostForm extends Component {
   state = initialState
 
   componentDidMount(){
@@ -36,9 +52,11 @@ class CreatePostForm extends Component {
       confirmationOpen: false,
       editState: true
     }
-    this.setState(editState)
-    console.log("ID", this.state);
+    this.props.newPost ? this.setState(initialState) : this.setState(editState)
+
   }
+
+  classes = () => useStyles();
 
   handleFormChange = name => event => {
     this.setState({...this.state, [name]: event.target.value})
@@ -60,13 +78,11 @@ class CreatePostForm extends Component {
     this.props.handleCloseModal()
   }
 
-  handleSaveClick = (state) => {
-    let payload={
-      ...this.state,
-      token: this.props.token
-    }
+  handleSaveClick = () => {
+    let payload={ ...this.state, token: this.props.token }
     delete payload.confirmationOpen
-    this.props.savePost(savePost(payload))
+    //save or edit conditional
+    this.props.editPostContent.draft ? this.props.savePost(saveDraft(payload)) : this.props.editPost(editPost(payload))
     this.setState({...this.state, confirmationOpen: false}, this.props.handleCloseModal)
   }
 
@@ -105,6 +121,16 @@ class CreatePostForm extends Component {
         cancelPost={this.cancelPost}
       />
     )
+  }
+
+  determineRankSelectOptions = (posts) => {
+    const activePosts = posts.filter(post => !post.draft)
+    //creates array of possible rank select options
+    const printMe = [...Array(activePosts.length + 2).keys()];
+    printMe.shift()
+    return printMe.map(val => {
+      return <option value={val}>{val}</option>
+    })
   }
 
   showWidget = (widget) => {
@@ -153,8 +179,10 @@ class CreatePostForm extends Component {
             <Container
               component="div"
               style={{
-                "text-align": "center",
-                "width":"100%"
+                "width":"100%",
+                display: "grid",
+                alignItems: "center",
+                justifyItems: "center"
               }}
             >
             <Button
@@ -164,6 +192,22 @@ class CreatePostForm extends Component {
             >
             Upload Image
             </Button>
+
+      <FormControl className={this.classes.formControl} style={{"margin-top":"3%", "min-width":"5em"}}>
+        <InputLabel htmlFor="age-native-simple">RANK</InputLabel>
+        <Select
+          native
+          value={this.state.rank}
+          onChange={this.handleFormChange('rank')}
+          inputProps={{
+            name: 'rank',
+            id: 'age-native-simple',
+          }}
+        >
+          {this.props.newPost && <option value={""}></option>}
+          {this.determineRankSelectOptions(this.props.posts)}
+        </Select>
+      </FormControl>
           </Container>
             <br/>
             <TextField
@@ -198,44 +242,43 @@ class CreatePostForm extends Component {
             </Container>
             <br/>
             <br/>
-            <Container
-              component="div"
+              <div
               style={{
-                "display": "flex",
-                "justify-content":"space-between",
-                "width":"100%"
+                "display": "grid",
+                "grid-template-columns": "repeat(auto-fit, minmax(5em, 1fr))",
+                "grid-gap": "1rem"
               }}
-            >
-              <Button
-                variant="contained"
-                className={"Button"}
-                onClick={() => this.handlePostClick(this.state)}
-                label="POST"
               >
-              POST
-              </Button>
-              <Button
-                label="SAVE"
-                variant="contained"
-                onClick={this.handleSaveClick}
-              >
-              SAVE
-              </Button>
-              <Button
-                label="DELETE"
-                variant="contained"
-                onClick={() => this.handleDeletePostClick(this.state.user_id, this.state.id)}
-              >
-              DELETE
-              </Button>
-              <Button
-                label="Save"
-                variant="contained"
-                onClick={this.handleCancelClick}
-              >
-              CANCEL
-              </Button>
-            </Container>
+                <Button
+                  variant="contained"
+                  className={"Button"}
+                  onClick={() => this.handlePostClick(this.state)}
+                  label="POST"
+                >
+                POST
+                </Button>
+                <Button
+                  label="SAVE"
+                  variant="contained"
+                  onClick={this.handleSaveClick}
+                >
+                SAVE
+                </Button>
+                <Button
+                  label="DELETE"
+                  variant="contained"
+                  onClick={() => this.handleDeletePostClick(this.state.user_id, this.state.id)}
+                >
+                DELETE
+                </Button>
+                <Button
+                  label="Save"
+                  variant="contained"
+                  onClick={this.handleCancelClick}
+                >
+                CANCEL
+                </Button>
+              </div>
             <br/>
             <br/>
             </Container>
@@ -246,7 +289,8 @@ class CreatePostForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    token: state.session.token
+    token: state.session.token,
+    posts: state.session.userPosts
   }
 }
 
