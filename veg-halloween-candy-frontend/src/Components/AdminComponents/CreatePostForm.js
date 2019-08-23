@@ -146,7 +146,7 @@ class CreatePostForm extends Component {
           //TODO: DETERMINE OPTIMAL IMAGE LINK FOR RESIZING NEEDS
           //q_auto = quality, f_auto = format, c_fill = crop & fill
           const desktopParams = 'w_900,h_500,q_auto,f_auto'
-          const phoneParams = 'w_450,h_250,q_auto,f_auto'
+          const phoneParams = 'w_200,h_200,q_auto,f_auto'
           const img1Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${desktopParams}/${result.info.path}`
           const img2Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${phoneParams}/${result.info.path}`
           this.setState({ ...this.state, image_url_1: img1Path, image_url_2: img2Path })

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {Fragment, useEffect, useState} from 'react';
-import styles from '../../styles/clientStyles.css'
+import styles from '../../styles/clientStyles.css.js'
 
 
 export default function CreatePostCard(props){
@@ -27,18 +27,22 @@ export default function CreatePostCard(props){
   const renderPosts = (posts) => {
     const sortedPosts = posts.sort((a,b) => (a.rank > b.rank) ? 1 : ((b.rank > a.rank) ? -1 : 0));
     return sortedPosts.map(post => {
-      console.log(styles.postContainerItem);
+      console.log(post);
       return(
-        <ul class={styles.postContainerItem} id={post.rank}>
-          <span>{post.title}</span>
-          <img src={post.image_url_1}></img>
+        <ul style={styles.postContainerItem} id={post.rank}>
+          <h1>{post.title}</h1>
+            <div style={styles.postContentContainer}>
+              <img src={post.image_url_2} style={styles.postImages}></img>
+              <p>{post.content_body}</p>
+              <button style={styles.buyNowBtn} href={post.referral_link}>BUY NOW</button>
+            </div>
         </ul>)
     })
   }
-
+console.log("STYLEs", styles.postContainer);
   return(
     <Fragment>
-      <div id="page-container">
+      <div id="page-container" style={styles.pageContainer}>
       <article>
         <header>
           <h1>Vegan Halloween Candy</h1>
@@ -49,7 +53,7 @@ export default function CreatePostCard(props){
         <div>
           Halloween Countdown: {halloweenCountDown()}
         </div>
-      <div id="post-container">
+      <div style={styles.postContainer}>
         {posts && renderPosts(posts)}
       </div>
       </div>

@@ -1,4 +1,8 @@
-.App {
+body {
+  width: 100%;
+}
+#app-container {
+  width: 100%;
   text-align: center;
   font-size: 10px;
 }
