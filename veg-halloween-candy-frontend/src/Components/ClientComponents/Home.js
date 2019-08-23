@@ -25,8 +25,9 @@ export default function CreatePostCard(props){
   const renderPosts = (posts) => {
     const sortedPosts = posts.sort((a,b) => (a.rank > b.rank) ? 1 : ((b.rank > a.rank) ? -1 : 0));
     return sortedPosts.map(post => {
+      console.log(styles.postContainerItem);
       return(
-        <ul class="post-container-item" id={post.rank}>
+        <ul class={styles.postContainerItem} id={post.rank}>
           <span>{post.title}</span>
           <img src={post.image_url_1}></img>
         </ul>)
