@@ -1,24 +1,26 @@
 
 const pageContainer = {
-  width: "100%"
+  "width":"100%",
+  "font-size":"10pt",
+  "background-color":"black"
 }
 
 const headerTextAlign = {
   "text-align":"center",
-  "width":"80%"
+  "width":"95%"
 }
 
-const centerContent = {
+const headerContainer = {
   "display": "flex",
   "flex-wrap": "wrap",
-  "justify-content": "center"
+  "justify-content": "center",
+  "color":"white"
 }
 
 const postContainer = {
-  width: "100%",
-  border: "5px solid red",
-  opacity: 1,
-  display: "flex",
+  "width": "100%",
+  "opacity": "1",
+  "display": "flex",
   "flex-wrap": "wrap",
   "justify-content": "center"
 }
@@ -32,38 +34,44 @@ const postImages = {
 }
 
 const postContentContainer = {
-  "width":"90%",
-  "border": "2px solid pink",
+  "width":"100%",
   "display": "flex",
+  "flex-wrap": "wrap",
   "justify-content": "center",
-  "flex-wrap": "wrap"
+  "align-items": "center",
+  "color":"white"
+}
+
+const postTitle = {
+  "margin":"0",
+  "justify-self":"left"
 }
 
 const contentBody = {
-  "height": "max-content"
+  "height":"max-content"
 }
 
 const buyNowBtn = {
-  border: "2px solid blue",
-  "max-height": "2rem"
+  "border":"2px solid orange",
+  "min-height":"5em",
+  "width":"30%",
+  "justify-self":"center",
+  "border-radius": "5px"
 }
 
-// "grid-gap": "4em"
-
 const postContainerItem = {
-  border: "5px solid orange",
-  display: "grid",
-  "justify-items": "center",
-  "align-items": "center",
-  width: "90%",
-  height: "max-content",
-  padding: "0",
+  "display":"grid",
+  "justify-items":"center",
+  "align-items":"center",
+  "width":"90vw",
+  "margin-bottom":"10%",
+  "height":"max-content",
+  "padding":"0",
   "border-radius": "5px"
-  // "box-shadow": "18px 20px 22px -11px rgba(0,16,0,0.35)"
 }
 
 const postContentRow2 = {
-  "width":"40%",
+  "width":"45%",
   "margin-left":"5%",
   "display":"grid",
   "align-items":"center",
@@ -71,9 +79,11 @@ const postContentRow2 = {
 }
 
 const postContentRow2Mobile = {
-  "display": "grid",
-  "grid-template-columns": "repeat(1, 1fr)",
-  "text-align": "left"
+  "width":"100%",
+  "margin-left":"5%",
+  "display":"grid",
+  "align-items":"center",
+  "grid-auto-rows":"minmax(min-content, max-content)"
 }
 
-export default { postContainer, pageContainer, postContainerItem, postContentContainer, buyNowBtn, postImages, contentBody, postContentRow2, postContentRow2Mobile, headerTextAlign, centerContent};
+export default { postContainer, pageContainer, postContainerItem, postContentContainer, buyNowBtn, postImages, contentBody, postContentRow2, postContentRow2Mobile, headerTextAlign, headerContainer, postTitle};

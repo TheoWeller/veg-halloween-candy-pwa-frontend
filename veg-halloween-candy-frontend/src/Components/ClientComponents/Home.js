@@ -38,7 +38,7 @@ export default function CreatePostCard(props){
       console.log(post);
       return(
         <ul style={styles.postContainerItem} id={post.rank}>
-          <h1>{post.title}</h1>
+          <h1 style={styles.postTitle}>&nbsp;&nbsp;&nbsp;{post.title}</h1>
             <div style={styles.postContentContainer}>
               <img src={post.image_url_2} style={styles.postImages}></img>
                 <div style={handleScreenSize(styles.postContentRow2, styles.postContentRow2Mobile)}>
@@ -52,7 +52,7 @@ export default function CreatePostCard(props){
   return(
     <Fragment>
       <div id="page-container" style={styles.pageContainer}>
-      <article style={styles.centerContent}>
+      <article style={styles.headerContainer}>
         <header style={styles.headerTextAlign}>
           <h1>Vegan Halloween Candy</h1>
           <h3>HEY GHOULS!</h3>
