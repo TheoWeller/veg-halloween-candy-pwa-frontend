@@ -35,10 +35,9 @@ export default function CreatePostCard(props){
   const renderPosts = (posts) => {
     const sortedPosts = posts.sort((a,b) => (a.rank > b.rank) ? 1 : ((b.rank > a.rank) ? -1 : 0));
     return sortedPosts.map(post => {
-      console.log(post);
       return(
         <ul style={styles.postContainerItem} id={post.rank}>
-          <h1 style={styles.postTitle}>&nbsp;&nbsp;&nbsp;{post.title}</h1>
+          <h1 style={styles.postTitle}>&nbsp;&nbsp;&nbsp;&nbsp;{post.title}</h1>
             <div style={styles.postContentContainer}>
               <img src={post.image_url_2} style={styles.postImages}></img>
                 <div style={handleScreenSize(styles.postContentRow2, styles.postContentRow2Mobile)}>
@@ -54,10 +53,10 @@ export default function CreatePostCard(props){
       <div id="page-container" style={styles.pageContainer}>
       <article style={styles.headerContainer}>
         <header style={styles.headerTextAlign}>
-          <h1>Vegan Halloween Candy</h1>
-          <h3>HEY GHOULS!</h3>
-          <p>Let’s celebrate the greatest holiday of the year without supporting the ghastly business of factory farming, then you’ve come to the right place! After years of testing in the field, here is my personal ranking of the most essential vegan Halloween candy.</p>
-          <font>Halloween Countdown:</font> {halloweenCountDown()}
+          <h1 style={{"font-family":'Creepster', "font-size":"4rem", "color":"red"}}>Vegan Halloween Candy</h1>
+          <h3 style={{"font-size":"1.5rem"}}>HEY GHOULS!</h3>
+          <p style={{"width":"80%", "margin":"0 auto", "font-size":"1.5rem"}}>Let’s celebrate the greatest holiday of the year without supporting the ghastly business of factory farming, then you’ve come to the right place! After years of testing in the field, here is my personal ranking of the most essential vegan Halloween candy.</p>
+          <h5 style={{"font-family":"Nosifer", "color":"orange", "font-size":"1.5rem"}}>{halloweenCountDown()} NIGHTS UNTIL HALLOWEEN</h5>
         </header>
       </article>
       <div style={styles.postContainer}>

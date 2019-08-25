@@ -1,13 +1,11 @@
-
 const pageContainer = {
   "width":"100%",
-  "font-size":"10pt",
   "background-color":"black"
 }
 
 const headerTextAlign = {
   "text-align":"center",
-  "width":"95%"
+  "width":"95%",
 }
 
 const headerContainer = {
@@ -43,12 +41,16 @@ const postContentContainer = {
 }
 
 const postTitle = {
-  "margin":"0",
-  "justify-self":"left"
+  "margin":"0,0,0,3%",
+  "justify-self":"center",
+  "color":"white",
+  "font-size":"2.5rem"
 }
 
 const contentBody = {
-  "height":"max-content"
+  "height":"max-content",
+  "text-align":"left",
+  "font-size":"1.3rem"
 }
 
 const buyNowBtn = {

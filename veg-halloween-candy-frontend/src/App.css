@@ -1,6 +1,11 @@
+html {
+  font-size: 10pt;
+}
+
 body {
   width: 100%;
 }
+
 #app-container {
   width: 100%;
   text-align: center;
