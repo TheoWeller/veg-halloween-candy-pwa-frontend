@@ -53,7 +53,7 @@ export default function CreatePostCard(props){
       <div id="page-container" style={styles.pageContainer}>
       <article style={styles.headerContainer}>
         <header style={styles.headerTextAlign}>
-          <h1 style={{"font-family":'Creepster', "font-size":"4rem", "color":"red"}}>Vegan Halloween Candy</h1>
+          <h1 style={{"font-family":'Creepster', "font-size":"5rem", "color":"red"}}>Vegan Halloween Candy</h1>
           <h3 style={{"font-size":"1.5rem"}}>HEY GHOULS!</h3>
           <p style={{"width":"80%", "margin":"0 auto", "font-size":"1.5rem"}}>Let’s celebrate the greatest holiday of the year without supporting the ghastly business of factory farming, then you’ve come to the right place! After years of testing in the field, here is my personal ranking of the most essential vegan Halloween candy.</p>
           <h5 style={{"font-family":"Nosifer", "color":"orange", "font-size":"1.5rem"}}>{halloweenCountDown()} NIGHTS UNTIL HALLOWEEN</h5>

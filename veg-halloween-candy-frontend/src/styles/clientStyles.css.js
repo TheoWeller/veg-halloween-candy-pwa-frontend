@@ -57,6 +57,7 @@ const buyNowBtn = {
   "border":"2px solid orange",
   "min-height":"5em",
   "width":"30%",
+  "margin-bottom":"10%",
   "justify-self":"center",
   "border-radius": "5px"
 }
@@ -69,7 +70,7 @@ const postContainerItem = {
   "margin-bottom":"10%",
   "height":"max-content",
   "padding":"0",
-  "border-radius": "5px"
+  "border-bottom": "2px solid orangered"
 }
 
 const postContentRow2 = {

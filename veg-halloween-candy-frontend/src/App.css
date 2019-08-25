@@ -11,3 +11,9 @@ body {
   text-align: center;
   font-size: 10px;
 }
+
+#page-container {
+  /* background-image: url('./assets/lightening.png'); */
+  background-position: top;
+  background-blend-mode: luminosity;
+}
