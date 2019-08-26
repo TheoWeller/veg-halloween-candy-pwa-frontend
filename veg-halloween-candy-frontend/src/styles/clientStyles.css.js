@@ -56,10 +56,12 @@ const contentBody = {
 const buyNowBtn = {
   "border":"2px solid orange",
   "min-height":"5em",
-  "width":"30%",
+  "width":"16em",
   "margin-bottom":"10%",
   "justify-self":"center",
-  "border-radius": "5px"
+  "border-radius": "5px",
+  "color":"white",
+  "background-color":"orange"
 }
 
 const postContainerItem = {
@@ -70,7 +72,6 @@ const postContainerItem = {
   "margin-bottom":"10%",
   "height":"max-content",
   "padding":"0",
-  "border-bottom": "2px solid orangered"
 }
 
 const postContentRow2 = {

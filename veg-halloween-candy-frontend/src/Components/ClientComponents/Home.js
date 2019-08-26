@@ -2,7 +2,8 @@
 
 import React from 'react';
 import {Fragment, useEffect, useState} from 'react';
-import styles from '../../styles/clientStyles.css.js'
+import styles from '../../styles/clientStyles.css.js';
+import ghostGif from '../../assets/ghost.gif';
 
 
 export default function CreatePostCard(props){
@@ -42,7 +43,7 @@ export default function CreatePostCard(props){
               <img src={post.image_url_2} style={styles.postImages}></img>
                 <div style={handleScreenSize(styles.postContentRow2, styles.postContentRow2Mobile)}>
                   <p style={styles.contentBody}>{post.content_body}</p>
-                  <button style={styles.buyNowBtn} href={post.referral_link}>BUY NOW</button>
+                  <button style={styles.buyNowBtn} href={post.referral_link}><font style={{"font-family":'Creepster', "font-size":"3rem"}}>BUY NOW</font></button>
                 </div>
             </div>
         </ul>)
@@ -55,13 +56,16 @@ export default function CreatePostCard(props){
         <header style={styles.headerTextAlign}>
           <h1 style={{"font-family":'Creepster', "font-size":"5rem", "color":"red"}}>Vegan Halloween Candy</h1>
           <h3 style={{"font-size":"1.5rem"}}>HEY GHOULS!</h3>
-          <p style={{"width":"80%", "margin":"0 auto", "font-size":"1.5rem"}}>Let’s celebrate the greatest holiday of the year without supporting the ghastly business of factory farming, then you’ve come to the right place! After years of testing in the field, here is my personal ranking of the most essential vegan Halloween candy.</p>
-          <h5 style={{"font-family":"Nosifer", "color":"orange", "font-size":"1.5rem"}}>{halloweenCountDown()} NIGHTS UNTIL HALLOWEEN</h5>
+          <p style={{"max-width":"30em", "margin":"0 auto", "font-size":"1.5rem"}}>Let’s celebrate the greatest holiday of the year without supporting the ghastly business of factory farming, then you’ve come to the right place! After years of testing in the field, here is my personal ranking of the most essential vegan Halloween candy.</p>
         </header>
       </article>
+      <img style={{"width": "320px"}}src={ghostGif}></img>
       <div style={styles.postContainer}>
         {posts && renderPosts(posts)}
       </div>
+      <footer>
+        <h5 style={{"font-family":"Nosifer", "color":"orange", "font-size":"2.5rem"}}><font style={{"color":"red", "border":"2px solid red", "padding":"0 6px"}}>{halloweenCountDown()}</font> NIGHTS UNTIL HALLOWEEN</h5>
+      </footer>
       </div>
     </Fragment>
   )
