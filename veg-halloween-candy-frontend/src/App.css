@@ -17,6 +17,25 @@ body {
   src: url('./assets/fonts/Nosifer-Regular.ttf')  format('truetype')
 }
 
+@font-face {
+  font-family: 'HallowenInline';
+  src: url('./assets/fonts/HallowenInline.ttf')  format('truetype')
+}
+
+@font-face {
+  font-family: 'Playfair-Bold';
+  src: url('./assets/fonts/PlayfairDisplay-Bold.ttf')  format('truetype')
+}
+@font-face {
+  font-family: 'Playfair';
+  src: url('./assets/fonts/PlayfairDisplay-Regular.ttf')  format('truetype')
+}
+
+@font-face {
+  font-family: 'Halloween';
+  src: url('./assets/fonts/Scary-Halloween-Font.ttf')  format('truetype')
+}
+
 #app-container {
   width: 100%;
   text-align: center;

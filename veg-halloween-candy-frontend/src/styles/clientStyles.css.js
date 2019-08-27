@@ -15,7 +15,18 @@ const headerContainer = {
   "color":"white"
 }
 
-const headerBody = {"max-width":"30em", "margin":"0 auto", "font-size":"1.5rem"}
+const headerTitle = {
+  "font-size":"3.6rem",
+  "color":"red",
+  "marginTop":"6px"
+}
+
+const headerBody = {
+  "max-width":"30em",
+  "margin":"0 auto",
+  "font-size":"2rem",
+  "font-weight":"bolder"
+}
 
 const postContainer = {
   "width": "100%",
@@ -46,20 +57,21 @@ const postTitle = {
   "margin":"0,0,0,3%",
   "justify-self":"center",
   "color":"white",
-  "font-size":"2.5rem"
+  "font-size":"2.5rem",
+  "color":"orange"
 }
 
 const contentBody = {
   "height":"max-content",
   "text-align":"left",
-  "font-size":"1.3rem"
+  "font-size":"1.8rem"
 }
 
 const buyNowBtn = {
   "border":"2px solid orange",
   "min-height":"5em",
   "width":"16em",
-  "margin-bottom":"10%",
+  "margin":"0 30% 0 30%",
   "justify-self":"center",
   "border-radius": "5px",
   "color":"white",
@@ -92,4 +104,25 @@ const postContentRow2Mobile = {
   "grid-auto-rows":"minmax(min-content, max-content)"
 }
 
-export default { postContainer, pageContainer, postContainerItem, postContentContainer, buyNowBtn, postImages, contentBody, postContentRow2, postContentRow2Mobile, headerTextAlign, headerContainer, postTitle, headerBody};
+const footerFontStyle = {
+  "color":"red",
+  "border":"2px solid red",
+  "padding":"0 6px"
+}
+
+export default {
+  postContainer,
+  pageContainer,
+  postContainerItem,
+  postContentContainer,
+  buyNowBtn, postImages,
+  contentBody,
+  postContentRow2,
+  postContentRow2Mobile,
+  headerTextAlign,
+  headerContainer,
+  postTitle,
+  headerBody,
+  headerTitle,
+  footerFontStyle
+};
