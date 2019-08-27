@@ -38,7 +38,7 @@ export default function CreatePostCard(props){
     return sortedPosts.map(post => {
       return(
         <ul style={styles.postContainerItem} id={post.rank}>
-          <h1 style={{...styles.postTitle, "font-family":'Playfair-Bold'}}>&nbsp;&nbsp;&nbsp;&nbsp;{post.title}</h1>
+          <h1 style={{...styles.postTitle, "font-family":'Playfair-Bold'}}>{post.title}</h1>
             <div style={styles.postContentContainer}>
               <img src={post.image_url_2} style={styles.postImages}></img>
                 <div style={handleScreenSize(styles.postContentRow2, styles.postContentRow2Mobile)}>
@@ -56,7 +56,8 @@ export default function CreatePostCard(props){
         <header style={styles.headerTextAlign}>
         <h3 style={{"font-size":"1.5rem", "font-family":"HallowenInline"}}>THE AUTHORITATIVE GUIDE TO</h3>
           <h1 style={{"font-family":'Halloween', ...styles.headerTitle}}>Vegan Halloween Candy</h1>
-          <h3 style={{"font-size":"1.5rem", "font-family":"Playfair-Bold"}}>HEY GHOULS!</h3>
+          <h4 style={{"font-size":"1.8rem", "font-family":'HallowenInline', "color":"grey"}}>--------  2019 EDITION  --------</h4>
+          <h3 style={{"font-size":"1.8rem", "font-family":"Playfair", "font-weight":"bolder", "margin-bottom":"10px"}}>Hey ghouls!</h3>
           <p style={{...styles.headerBody, "font-family":"Playfair"}}>Let’s celebrate the greatest holiday of the year without supporting the ghastly business of factory farming, then you’ve come to the right place! After years of testing in the field, here is my personal ranking of the most essential vegan Halloween candy.</p>
         </header>
       </article>

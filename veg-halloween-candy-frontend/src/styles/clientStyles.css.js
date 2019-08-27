@@ -57,8 +57,9 @@ const postTitle = {
   "margin":"0,0,0,3%",
   "justify-self":"center",
   "color":"white",
-  "font-size":"2.5rem",
-  "color":"orange"
+  "font-size":"2.8rem",
+  "color":"orange",
+  "margin-bottom":"1%"
 }
 
 const contentBody = {
@@ -71,7 +72,7 @@ const buyNowBtn = {
   "border":"2px solid orange",
   "min-height":"5em",
   "width":"16em",
-  "margin":"0 30% 0 30%",
+  "margin":"3% 25% 0 25%",
   "justify-self":"center",
   "border-radius": "5px",
   "color":"white",
