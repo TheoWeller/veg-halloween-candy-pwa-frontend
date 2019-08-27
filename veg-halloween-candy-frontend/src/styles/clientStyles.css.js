@@ -63,9 +63,10 @@ const postTitle = {
 }
 
 const contentBody = {
-  "height":"max-content",
+  "max-height":"250px",
   "text-align":"left",
-  "font-size":"1.8rem"
+  "font-size":"1.6rem",
+  "margin":"0"
 }
 
 const buyNowBtn = {
