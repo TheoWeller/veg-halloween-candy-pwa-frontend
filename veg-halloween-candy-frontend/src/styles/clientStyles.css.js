@@ -15,6 +15,8 @@ const headerContainer = {
   "color":"white"
 }
 
+const headerBody = {"max-width":"30em", "margin":"0 auto", "font-size":"1.5rem"}
+
 const postContainer = {
   "width": "100%",
   "opacity": "1",
@@ -90,4 +92,4 @@ const postContentRow2Mobile = {
   "grid-auto-rows":"minmax(min-content, max-content)"
 }
 
-export default { postContainer, pageContainer, postContainerItem, postContentContainer, buyNowBtn, postImages, contentBody, postContentRow2, postContentRow2Mobile, headerTextAlign, headerContainer, postTitle};
+export default { postContainer, pageContainer, postContainerItem, postContentContainer, buyNowBtn, postImages, contentBody, postContentRow2, postContentRow2Mobile, headerTextAlign, headerContainer, postTitle, headerBody};

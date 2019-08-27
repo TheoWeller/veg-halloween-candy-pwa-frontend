@@ -7,6 +7,16 @@ body {
   width: 100%;
 }
 
+@font-face {
+  font-family: 'Creepster';
+  src: url('./assets/fonts/Creepster-Regular.ttf')  format('truetype')
+}
+
+@font-face {
+  font-family: 'Nosifer';
+  src: url('./assets/fonts/Nosifer-Regular.ttf')  format('truetype')
+}
+
 #app-container {
   width: 100%;
   text-align: center;
@@ -14,10 +24,10 @@ body {
 }
 
 #page-container {
-  background-image: url('./assets/lightening.png');
+  /* background-image: url('./assets/lightening.png');
   background-position: top;
   background-blend-mode: screen;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 }
 
 /* #page-container img {
