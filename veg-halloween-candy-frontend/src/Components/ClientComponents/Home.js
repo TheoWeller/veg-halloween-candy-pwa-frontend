@@ -38,7 +38,7 @@ export default function CreatePostCard(props){
     return sortedPosts.map(post => {
       return(
         <ul style={styles.postContainerItem} id={post.rank}>
-          <h1 style={{...styles.postTitle, "font-family":'Playfair-Bold'}}>{post.title}</h1>
+          <h1 style={{...styles.postTitle, "font-family":'Playfair-Bold'}}>#{post.rank}.  {post.title}</h1>
             <div style={styles.postContentContainer}>
               <img src={post.image_url_2} style={styles.postImages}></img>
                 <div style={handleScreenSize(styles.postContentRow2, styles.postContentRow2Mobile)}>
