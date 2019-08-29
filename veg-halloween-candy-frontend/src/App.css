@@ -1,24 +1,56 @@
-.App {
+html {
+  font-size: 10pt;
+  background-color: black;
+}
+
+body {
+  width: 100%;
+}
+
+@font-face {
+  font-family: 'Creepster';
+  src: url('./assets/fonts/Creepster-Regular.ttf')  format('truetype')
+}
+
+@font-face {
+  font-family: 'Nosifer';
+  src: url('./assets/fonts/Nosifer-Regular.ttf')  format('truetype')
+}
+
+@font-face {
+  font-family: 'HallowenInline';
+  src: url('./assets/fonts/HallowenInline.ttf')  format('truetype')
+}
+
+@font-face {
+  font-family: 'Playfair-Bold';
+  src: url('./assets/fonts/PlayfairDisplay-Bold.ttf')  format('truetype')
+}
+@font-face {
+  font-family: 'Playfair';
+  src: url('./assets/fonts/PlayfairDisplay-Regular.ttf')  format('truetype')
+}
+
+@font-face {
+  font-family: 'Halloween';
+  src: url('./assets/fonts/Scary-Halloween-Font.ttf')  format('truetype')
+}
+
+#app-container {
+  width: 100%;
   text-align: center;
+  font-size: 10px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+#page-container {
+  /* background-image: url('./assets/lightening.png');
+  background-position: top;
+  background-blend-mode: screen;
+  background-repeat: no-repeat; */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
+/* #page-container img {
+  position: fixed;
+  top: 40%;
+  display: none;
+} */

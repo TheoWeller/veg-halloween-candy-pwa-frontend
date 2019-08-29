@@ -3,6 +3,8 @@ import {Component, Fragment} from 'react';
 import {Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 
+import './App.css'
+
 
 import SignupForm from './Components/Login_Signup/SignupForm'
 import Login from './Components/Login_Signup/Login'

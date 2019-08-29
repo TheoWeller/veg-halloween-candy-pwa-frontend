@@ -14,13 +14,14 @@ export let store = createStore(rootReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <div id="app-container">
-    <div className="super-awesome-background"></div>
+    <div is="super-spooky-background">
       <Provider store={store}>
         <Router history={history}>
             <App />
         </Router>
       </Provider>
-    </div>,
+    </div>
+  </div>,
   document.getElementById('root')
 );
 
