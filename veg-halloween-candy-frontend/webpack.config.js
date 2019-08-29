@@ -25,16 +25,8 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-      test: /\.ttf$/,
-      use: [
-        {
-          loader: 'ttf-loader',
-          options: {
-            name: './font/[hash].[ext]',
-          },
-        },
-      ]
-    },
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        use: ['url-loader?limit=100000'] },
     {
     test: /\.(jpe?g|png|gif|svg)$/i,
     loader: 'file-loader'
