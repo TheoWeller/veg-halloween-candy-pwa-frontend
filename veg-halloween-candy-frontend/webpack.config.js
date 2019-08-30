@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   mode: "production",
@@ -9,6 +11,13 @@ module.exports = {
     filename: 'bundle.js',
     chunkFilename: '[name].bundle.js',
     publicPath: '/'
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        test: /\.js(\?.*)?$/i,
+      }),
+    ],
   },
   module: {
     rules: [
@@ -42,6 +51,7 @@ module.exports = {
       template: "./public/index.html",
       filename: 'index.html',
       inject: "body"
-    })
+    }),
+    new BundleAnalyzerPlugin()
   ]
 }
