@@ -62,7 +62,7 @@ export default function CreatePostCard(props){
           <p style={{...styles.headerBody, "font-family":"Playfair"}}>Let’s celebrate the greatest holiday of the year without supporting the ghastly business of factory farming, then you’ve come to the right place! After years of testing in the field, here is my personal ranking of the most essential vegan Halloween candy.</p>
         </header>
       </article>
-      <img style={{"width": "320px", "margin-top":"5%"}}src={ghostGif}></img>
+      {<img style={{"width": "320px", "margin-top":"5%"}}src={ghostGif}></img>}
       <div style={styles.postContainer}>
         {posts && renderPosts(posts)}
       </div>
