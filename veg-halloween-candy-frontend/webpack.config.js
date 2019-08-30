@@ -54,7 +54,6 @@ module.exports = {
       filename: 'index.html',
       inject: "body"
     }),
-    new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')

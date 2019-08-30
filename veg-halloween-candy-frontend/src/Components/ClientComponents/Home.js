@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {Fragment, useEffect, useState} from 'react';
-import styles from '../../styles/clientStyles.css.js';
+import styles from './styles/clientStyles.css.js';
 import ghostGif from '../../assets/ghost.gif';
 
 
@@ -38,14 +38,16 @@ export default function CreatePostCard(props){
     return sortedPosts.map(post => {
       return(
         <ul style={styles.postContainerItem} id={post.rank}>
-          <h1 style={{...styles.postTitle, "font-family":'Playfair-Bold'}}>#{post.rank}.  {post.title}</h1>
-            <div style={styles.postContentContainer}>
-              <img src={post.image_url_2} style={styles.postImages}></img>
-                <div style={handleScreenSize(styles.postContentRow2, styles.postContentRow2Mobile)}>
-                  <p style={{...styles.contentBody, "font-family":"Playfair"}}>{post.content_body}</p>
-                </div>
-                <button style={styles.buyNowBtn} href={post.referral_link}><font style={{"font-family":'Creepster', "font-size":"3rem"}}>BUY NOW</font></button>
-            </div>
+          <li>
+            <h1 style={{...styles.postTitle, "font-family":'Playfair-Bold'}}>#{post.rank}.  {post.title}</h1>
+              <div style={styles.postContentContainer}>
+                <img alt={post.title} src={post.image_url_2} style={styles.postImages}></img>
+                  <div style={handleScreenSize(styles.postContentRow2, styles.postContentRow2Mobile)}>
+                    <p style={{...styles.contentBody, "font-family":"Playfair"}}>{post.content_body}</p>
+                  </div>
+                  <button style={styles.buyNowBtn} href={post.referral_link}><font style={{"font-family":'Creepster', "font-size":"3rem"}}>BUY NOW</font></button>
+              </div>
+          </li>
         </ul>)
     })
   }
@@ -62,7 +64,7 @@ export default function CreatePostCard(props){
           <p style={{...styles.headerBody, "font-family":"Playfair"}}>Let’s celebrate the greatest holiday of the year without supporting the ghastly business of factory farming, then you’ve come to the right place! After years of testing in the field, here is my personal ranking of the most essential vegan Halloween candy.</p>
         </header>
       </article>
-      {<img style={{"width": "320px", "margin-top":"5%"}}src={ghostGif}></img>}
+      {<img alt="spooky-animated-ghost" style={{"width": "320px", "margin-top":"5%"}}src={ghostGif}></img>}
       <div style={styles.postContainer}>
         {posts && renderPosts(posts)}
       </div>
