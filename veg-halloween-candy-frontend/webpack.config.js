@@ -1,12 +1,25 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 module.exports = {
   mode: "production",
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    chunkFilename: '[name].bundle.js',
+    publicPath: '/'
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        test: /\.js(\?.*)?$/i,
+      }),
+    ],
   },
   module: {
     rules: [
@@ -28,16 +41,26 @@ module.exports = {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         use: ['url-loader?limit=100000'] },
     {
-    test: /\.(jpe?g|png|gif|svg)$/i,
-    loader: 'file-loader'
-}
-    ]
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      loader: 'file-loader'
+    }]
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
       filename: 'index.html',
       inject: "body"
-    })
+    }),
+    new BundleAnalyzerPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new LodashModuleReplacementPlugin,
+    new webpack.optimize.AggressiveMergingPlugin()
   ]
 }
