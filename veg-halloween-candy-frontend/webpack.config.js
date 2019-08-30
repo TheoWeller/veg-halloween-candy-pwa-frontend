@@ -5,7 +5,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
-
 module.exports = {
   mode: "production",
   entry: './src/index.js',
@@ -61,6 +60,7 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new LodashModuleReplacementPlugin
+    new LodashModuleReplacementPlugin,
+    new webpack.optimize.AggressiveMergingPlugin()
   ]
 }
