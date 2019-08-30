@@ -49,6 +49,7 @@ export default function CreatePostCard(props){
         </ul>)
     })
   }
+
   return(
     <Fragment>
       <div id="page-container" style={styles.pageContainer}>
