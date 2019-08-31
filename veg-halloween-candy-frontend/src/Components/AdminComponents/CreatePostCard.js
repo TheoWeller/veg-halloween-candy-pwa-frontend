@@ -68,7 +68,7 @@ const classes = useStyles();
                   color="primary"
                   variant="outlined"
                   onClick={() => handleShopNowClick(props.content.referral_link)}>
-                    SHOP NOW
+                    BUY NOW
                 </Button>
               </CardActions>
       </Card>

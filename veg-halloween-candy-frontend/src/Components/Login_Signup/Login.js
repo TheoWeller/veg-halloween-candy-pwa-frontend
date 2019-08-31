@@ -3,7 +3,7 @@ import {Component} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { login, sessionFetch } from '../../actions/sessionActions'
+import { login, sessionFetch } from '../../actions/sessionActions';
 import { withRouter } from 'react-router'
 
 class LoginForm extends Component {
@@ -16,14 +16,17 @@ class LoginForm extends Component {
 
   onSubmit = () => {
     this.props.login(login(this.state.email, this.state.password))
+
   }
 
   render(){
     return (
-      <div>
-        <form className="container" style={{"background-color":"white"}} noValidate autoComplete="off">
+      <div style={{"height":"100vh", "width":"100vw"}}>
+      <h1 style={{"font-family":'Halloween', "font-size":"3.6rem", "color":"red"}}>Vegan Halloween Candy</h1>
+        <form className="container" style={{"background-color":"white", "height":"100%", "width":"100%"}} noValidate autoComplete="off">
           <TextField
             label="Email"
+            style={{"width":"60%"}}
             className="textField"
             value={this.state.email}
             onChange={this.handleFormChange("email")}
@@ -33,6 +36,7 @@ class LoginForm extends Component {
           <TextField
             label="Password"
             className="textField"
+            style={{"width":"60%"}}
             type="password"
             value={this.state.password}
             onChange={this.handleFormChange("password")}
@@ -42,6 +46,7 @@ class LoginForm extends Component {
           <Button
           variant="contained"
           className="button"
+          size="large"
           onClick={this.onSubmit}
           >
           Login
@@ -50,7 +55,6 @@ class LoginForm extends Component {
       </div>
     )
   }
-
 }
 
 const mapDispatchToProps = (dispatch) => {

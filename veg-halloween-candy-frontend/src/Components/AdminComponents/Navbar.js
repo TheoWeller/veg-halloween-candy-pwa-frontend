@@ -19,11 +19,12 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
 }));
+
 export default function Navbar(props) {
   const classes = useStyles();
     return(
-      <div className={classes.root} id={"navbar-container"}>
-         <AppBar position="static">
+      <div className={classes.root} style={{"color":"#FF8C00"}} id={"navbar-container"}>
+         <AppBar position="static" color="inherit">
             <Toolbar>
                  <Button
                    edge="start"

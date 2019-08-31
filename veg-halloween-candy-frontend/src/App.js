@@ -57,20 +57,22 @@ class App extends Component {
         if(this.props.authenticated && this.props.currentUser){
           return (
             <Suspense fallback={<div>loading.....</div>}>
+            <Redirect to="/dashboard"/>
+            <Route exact path='/dashboard' render={(history) => {
+              return (
               <AdminHome
-              currentUser={this.props.currentUser}
-              token={this.props.token}
-              posts={this.props.userPosts}
-              />
+                currentUser={this.props.currentUser}
+                token={this.props.token}
+                posts={this.props.userPosts}
+              />)
+            }}/>
             </Suspense>
           )
         } else {
           return (
             <Suspense fallback={<div>loading.....</div>}>
-              <Fragment>
-                <Route exact path='/super-spooky-login' component={Login}/>
-                <Route exact path='/' component={Home}/>
-              </Fragment>
+              <Route exact path='/super-spooky-login' component={Login}/>
+              <Route exact path='/' component={Home}/>
             </Suspense>
           )
         }//end of nested "if" statement
