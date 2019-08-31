@@ -36,9 +36,17 @@ const postContainer = {
   "justify-content": "center"
 }
 
-const postImages = {
+const postImagesMobile = {
   "width":"250px",
   "height":"250px",
+  "background-size": "contain",
+  "background-repeat": "no-repeat",
+  "background-position": "center center"
+}
+
+const postImagesDesktop = {
+  "width":"350px",
+  "height":"350px",
   "background-size": "contain",
   "background-repeat": "no-repeat",
   "background-position": "center center"
@@ -116,7 +124,9 @@ export default {
   pageContainer,
   postContainerItem,
   postContentContainer,
-  buyNowBtn, postImages,
+  buyNowBtn,
+  postImagesMobile,
+  postImagesDesktop,
   contentBody,
   postContentRow2,
   postContentRow2Mobile,

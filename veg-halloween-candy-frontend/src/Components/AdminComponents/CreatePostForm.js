@@ -144,10 +144,9 @@ class CreatePostForm extends Component {
       cloudName: 'dvlthlwhv',
       uploadPreset: 'ppn7wtzd'}, (error, result) => {
         if (!error && result && result.event === "success") {
-          //TODO: DETERMINE OPTIMAL IMAGE LINK FOR RESIZING NEEDS
           //q_auto = quality, f_auto = format, c_fill = crop & fill
-          const desktopParams = 'w_250,h_250,q_auto,f_auto,c_fill'
-          const phoneParams = 'w_250,h_250,q_auto,f_auto,c_fill'
+          const desktopParams = 'w_350,h_350,q_auto,f_auto,c_scale'
+          const phoneParams = 'w_250,h_250,q_auto,f_auto,c_scale'
           const img1Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${desktopParams}/${result.info.path}`
           const img2Path = `https://res.cloudinary.com/dvlthlwhv/image/upload/${phoneParams}/${result.info.path}`
           this.setState({ ...this.state, image_url_1: img1Path, image_url_2: img2Path })
