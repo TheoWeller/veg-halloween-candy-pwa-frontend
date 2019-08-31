@@ -21,7 +21,8 @@ export default (state = initialState, action) => {
         token: action.payload.token
       }
     case LOGOUT:
-      localStorage.removeItem("vhcToken")
+      localStorage.removeItem("vhcToken");
+      location.pathname = "/";
       return {...initialState, loading: false}
     case LOADING:
       return {...state, loading: true}

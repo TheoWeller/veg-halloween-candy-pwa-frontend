@@ -16,29 +16,6 @@ const AdminHome = React.lazy(() => import('./Components/AdminComponents/AdminHom
 
 import { autoLogin, sessionFetch } from './actions/sessionActions'
 
-
-// class DynamicImport extends Component {
-//   state = { component: null }
-//
-// componentWillMount(){
-//   this.props.load()
-//   .then((module) => this.setState(() => {
-//     component: module.default
-//   }))
-// }
-//   render() {
-//     return this.props.children(this.state.component)
-//   }
-// }
-//
-// const Home = (props) => {
-//   <DynamicImport load={() => import('./Components/ClientComponents/Home')}>
-//     {(Component) => Component === null
-//     ? <h1>loading...</h1>
-//     : <Component {...props}/>}
-//   </DynamicImport>
-// }
-
 class App extends Component {
 
   componentDidMount(){
@@ -57,20 +34,24 @@ class App extends Component {
         if(this.props.authenticated && this.props.currentUser){
           return (
             <Suspense fallback={<div>loading.....</div>}>
-              <AdminHome
-              currentUser={this.props.currentUser}
-              token={this.props.token}
-              posts={this.props.userPosts}
-              />
+              <Redirect to="/dashboard"/>
+              <Route path="*" component={Home} />
+              <Route exact path='/dashboard' render={(history) => {
+                return (
+                <AdminHome
+                  currentUser={this.props.currentUser}
+                  token={this.props.token}
+                  posts={this.props.userPosts}
+                />)
+              }}/>
             </Suspense>
           )
         } else {
           return (
             <Suspense fallback={<div>loading.....</div>}>
-              <Fragment>
-                <Route exact path='/super-spooky-login' component={Login}/>
-                <Route exact path='/' component={Home}/>
-              </Fragment>
+              <Route exact path='/super-spooky-login' component={Login}/>
+              <Route path="*" component={Home} />
+              <Route exact path='/' component={Home}/>
             </Suspense>
           )
         }//end of nested "if" statement

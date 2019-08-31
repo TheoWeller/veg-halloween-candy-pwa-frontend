@@ -76,7 +76,7 @@ const buyNowBtn = {
   "justify-self":"center",
   "border-radius": "5px",
   "color":"white",
-  "background-color":"orange"
+  "background-color":"#FF8C00"
 }
 
 const postContainerItem = {

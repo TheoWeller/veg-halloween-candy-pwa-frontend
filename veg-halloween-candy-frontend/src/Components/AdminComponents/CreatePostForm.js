@@ -29,7 +29,8 @@ const initialState = {
   image_url_1: "",
   image_url_2: "",
   referral_link: "",
-  confirmationOpen: false
+  confirmationOpen: false,
+  editState: false
 }
 
 const useStyles = makeStyles(theme => ({
@@ -53,7 +54,6 @@ class CreatePostForm extends Component {
       editState: true
     }
     this.props.newPost ? this.setState(initialState) : this.setState(editState)
-
   }
 
   classes = () => useStyles();
@@ -81,6 +81,7 @@ class CreatePostForm extends Component {
   handleSaveClick = () => {
     let payload={ ...this.state, token: this.props.token }
     delete payload.confirmationOpen
+    delete payload.editState
     //save or edit conditional
     this.props.editPostContent.draft ? this.props.savePost(saveDraft(payload)) : this.props.editPost(editPost(payload))
     this.setState({...this.state, confirmationOpen: false}, this.props.handleCloseModal)
@@ -249,14 +250,14 @@ class CreatePostForm extends Component {
                 "grid-gap": "1rem"
               }}
               >
-                <Button
+                {this.props.newPost && (<Button
                   variant="contained"
                   className={"Button"}
                   onClick={() => this.handlePostClick(this.state)}
                   label="POST"
                 >
                 POST
-                </Button>
+                </Button>)}
                 <Button
                   label="SAVE"
                   variant="contained"
