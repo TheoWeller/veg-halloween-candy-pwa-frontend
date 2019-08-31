@@ -29,25 +29,20 @@ const handleShopNowClick = (url) => {
   openInNewTab(url)
 }
 
-const ifAdmin = (handleEditPost, postContent) => {
-  return (
-    <CardHeader
-      action={
-        <IconButton aria-label="edit post">
-          <CreateIcon onClick={() => handleEditPost(postContent)} />
-        </IconButton>
-      }
-    />
-  )
-}
-
 export default function CreatePostCard(props){
 const classes = useStyles();
   return (
     <Fragment>
       <br/>
       <Card className={classes.card} raised id={props.content.id}>
-        {props.admin && ifAdmin(props.handleEditPost, props.content)}
+        <CardHeader
+          title={props.content.title}
+          action={
+            <IconButton aria-label="edit post">
+              <CreateIcon onClick={() => handleEditPost(postContent)} />
+            </IconButton>
+          }
+        />
           <CardMedia
             component="img"
             alt="desc"
@@ -55,10 +50,10 @@ const classes = useStyles();
             title="title"
           />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {props.content.title}
+                <Typography gutterBottom variant="h4" component="h2">
+                  {`Rank: ${props.content.rank}`}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
+                <Typography variant="h6" color="textSecondary" component="p">
                   {props.content.content_body}
                 </Typography>
               </CardContent>

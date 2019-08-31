@@ -56,13 +56,13 @@ class AdminHome extends Component {
 
   render(){
     return(
-      <div>
+      <div style={{"width":"100%", "display":"flex","justify-content":"center", "flex-direction":"column"}}>
       <Navbar
         logout={this.props.logout}
         handleCreatePost={this.handleCreatePost}
         handleDraftClick={this.handleDraftClick}
       />
-      <Container maxWidth="md">
+      <Container maxWidth="sm">
         <PostIndex
           admin={this.props.currentUser.admin}
           handleEditPost={this.handleEditPost}

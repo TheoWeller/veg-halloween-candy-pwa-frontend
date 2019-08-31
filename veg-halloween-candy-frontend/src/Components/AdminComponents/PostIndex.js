@@ -17,9 +17,9 @@ class PostIndex extends Component {
           content={post}
           admin={this.props.admin}
         />
-      )}
-    })
-  }
+      )};
+    });
+  };
 
   render(){
     return this.renderPosts(this.props.posts)
