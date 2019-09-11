@@ -39,7 +39,7 @@ const classes = useStyles();
           title={props.content.title}
           action={
             <IconButton aria-label="edit post">
-              <CreateIcon onClick={() => handleEditPost(postContent)} />
+              <CreateIcon onClick={() => props.handleEditPost(props.content)} />
             </IconButton>
           }
         />
@@ -71,6 +71,3 @@ const classes = useStyles();
     </Fragment>
   )
 }
-
-
-// <TextareaAutosize aria-label="Minimum height" rows={10}/>

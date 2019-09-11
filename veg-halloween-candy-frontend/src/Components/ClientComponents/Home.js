@@ -41,7 +41,7 @@ export default function CreatePostCard(props){
           <li>
             <h1 style={{...styles.postTitle, "font-family":'Playfair-Bold'}}>#{post.rank}.  {post.title}</h1>
               <div style={styles.postContentContainer}>
-                <img alt={post.title} src={post.image_url_2} style={styles.postImages}></img>
+                <img alt={post.title} src={handleScreenSize(post.image_url_1, post.image_url_2)} style={handleScreenSize(styles.postImagesDesktop, styles.postImagesMobile)}></img>
                   <div style={handleScreenSize(styles.postContentRow2, styles.postContentRow2Mobile)}>
                     <p style={{...styles.contentBody, "font-family":"Playfair"}}>{post.content_body}</p>
                   </div>

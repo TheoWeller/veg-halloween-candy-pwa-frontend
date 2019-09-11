@@ -6,13 +6,10 @@ import { connect } from 'react-redux';
 import './App.css'
 
 import SignupForm from './Components/Login_Signup/SignupForm'
-// import Login from './Components/Login_Signup/Login'
-// import AdminHome from './Components/AdminComponents/AdminHome'
-// import Home from './Components/ClientComponents/Home'
-
 const Home = React.lazy(() => import('./Components/ClientComponents/Home'))
 const Login = React.lazy(() => import('./Components/Login_Signup/Login'))
 const AdminHome = React.lazy(() => import('./Components/AdminComponents/AdminHome'))
+const NotFound = React.lazy(() => import('./Components/404NotFound'))
 
 import { autoLogin, sessionFetch } from './actions/sessionActions'
 
@@ -30,12 +27,11 @@ class App extends Component {
   }
 
   render(){
-      if(!this.props.loading || this.props.authenticated){
+      if(!this.props.loading){
         if(this.props.authenticated && this.props.currentUser){
           return (
             <Suspense fallback={<div>loading.....</div>}>
               <Redirect to="/dashboard"/>
-              <Route path="*" component={Home} />
               <Route exact path='/dashboard' render={(history) => {
                 return (
                 <AdminHome
@@ -49,9 +45,11 @@ class App extends Component {
         } else {
           return (
             <Suspense fallback={<div>loading.....</div>}>
-              <Route exact path='/super-spooky-login' component={Login}/>
-              <Route path="*" component={Home} />
-              <Route exact path='/' component={Home}/>
+              <Switch>
+                <Route exact path='/super-spooky-login' component={Login}/>
+                <Route exact path='/' component={Home}/>
+                <Route component={NotFound}/>
+              </Switch>
             </Suspense>
           )
         }//end of nested "if" statement
