@@ -1,6 +1,6 @@
 const pageContainer = {
   "width":"100%",
-  "background-color":"black"
+  // "background-color":"black"
 }
 
 const headerTextAlign = {
@@ -62,12 +62,22 @@ const postContentContainer = {
 }
 
 const postTitle = {
-  "margin":"0,0,0,3%",
-  "justify-self":"center",
+  "margin":"0",
+  "justify-self":"left",
   "color":"white",
   "font-size":"2.8rem",
   "color":"orange",
   "margin-bottom":"1%"
+}
+
+const postTitleMobile = {
+  "margin":"0",
+  "justify-self":"center",
+  "color":"white",
+  "font-size":"2.8rem",
+  "color":"orange",
+  "margin-bottom":"1%",
+  "font-family":"Playfair"
 }
 
 const contentBody = {
@@ -133,6 +143,7 @@ export default {
   headerTextAlign,
   headerContainer,
   postTitle,
+  postTitleMobile,
   headerBody,
   headerTitle,
   footerFontStyle

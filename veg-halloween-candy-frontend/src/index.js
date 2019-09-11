@@ -15,7 +15,7 @@ export let store = createStore(rootReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <div id="app-container">
-    <div is="super-spooky-background">
+    <div id="super-spooky-background">
       <Provider store={store}>
         <Router history={history}>
             <App />
