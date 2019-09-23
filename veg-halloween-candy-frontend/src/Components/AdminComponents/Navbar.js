@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 export default function Navbar(props) {
   const classes = useStyles();
     return(
-      <div className={classes.root} style={{"color":"#FF8C00"}} id={"navbar-container"}>
+      <div className={classes.root} style={{"width":"100vw"}} id={"navbar-container"}>
          <AppBar position="static" color="inherit">
             <Toolbar>
                  <Button
@@ -45,6 +45,16 @@ export default function Navbar(props) {
                    onClick={props.handleDraftClick}
                  >
                   Drafts
+                 </Button>
+                 <Button
+                   edge="start"
+                   className={classes.menuButton}
+                   color="inherit"
+                   aria-label="view drafts"
+                   size="medium"
+                   onClick={"props.handleDraftClick"}
+                 >
+                  Analytics
                  </Button>
                <Typography variant="h6" className={classes.title}>
                </Typography>
