@@ -55,6 +55,17 @@ body {
   margin-bottom: 0% !important;
 }
 
+#login-form input {
+  color: white !important;
+  font-size: x-large;
+}
+
+::placeholder {
+  color: white;
+}
+
+
+
 #super-spooky-background {
   /* background-image: url('https://res.cloudinary.com/dvlthlwhv/image/upload/v1569273577/rv5hqjo0z80q3sr0nffx.jpg'); */
   /* background-image: url('https://res.cloudinary.com/dvlthlwhv/image/upload/v1569268654/q8mljaplrsfzssklh4ie.gif'); */
