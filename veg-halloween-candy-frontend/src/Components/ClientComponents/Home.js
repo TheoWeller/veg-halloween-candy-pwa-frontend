@@ -11,11 +11,12 @@ export default function CreatePostCard(props){
 
   const halloweenCountDown = () => {
     const now = new Date().getTime();
-    const halloween = new Date('10/31/2019 12:1 AM').getTime()
+    const currentYear = new Date().getFullYear();
+    const halloween = new Date(`10/31/${currentYear} 12:1 AM`).getTime();
     const distance = halloween - now
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     return days;
-  }
+  };
 
   useEffect(() => {
     (async () => {
