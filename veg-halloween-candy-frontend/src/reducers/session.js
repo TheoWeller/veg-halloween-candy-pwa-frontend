@@ -29,13 +29,13 @@ export default (state = initialState, action) => {
     case ERROR:
       return { initialState }
       case CREATE_POST:
-        return {...state, userPosts: action.payload};
+        return {...state, userPosts: action.payload, loading: false};
       case SAVE_POST:
-        return {...state, userPosts: addPostToUserPosts(action.payload)};
+        return {...state, userPosts: addPostToUserPosts(action.payload), loading: false};
       case EDIT_POST:
-        return {...state, userPosts: action.payload};
+        return {...state, userPosts: action.payload, loading: false};
       case DELETE_POST:
-        return {...state, userPosts: action.payload};
+        return {...state, userPosts: action.payload, loading: false};
     default:
       return state;
     }

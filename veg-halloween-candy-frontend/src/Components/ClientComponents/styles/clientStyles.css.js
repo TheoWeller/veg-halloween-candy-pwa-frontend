@@ -1,6 +1,6 @@
 const pageContainer = {
   "width":"100%",
-  "background-color":"black"
+  // "background-color":"black"
 }
 
 const headerTextAlign = {
@@ -25,11 +25,12 @@ const headerBody = {
   "max-width":"30em",
   "margin":"0 auto",
   "font-size":"2rem",
-  "font-weight":"bolder"
+  // "font-weight":"bolder"
 }
 
 const postContainer = {
-  "width": "100%",
+  "width": "100vw",
+  "margin": "0",
   "opacity": "1",
   "display": "flex",
   "flex-wrap": "wrap",
@@ -54,6 +55,7 @@ const postImagesDesktop = {
 
 const postContentContainer = {
   "width":"100%",
+  "margin": "0",
   "display": "flex",
   "flex-wrap": "wrap",
   "justify-content": "center",
@@ -62,18 +64,31 @@ const postContentContainer = {
 }
 
 const postTitle = {
-  "margin":"0,0,0,3%",
-  "justify-self":"center",
+  "margin":"0",
+  "justify-self":"left",
   "color":"white",
   "font-size":"2.8rem",
   "color":"orange",
   "margin-bottom":"1%"
 }
 
+const postTitleMobile = {
+  "margin":"5% 0% 0%",
+  "justify-self":"center",
+  "color":"white",
+  "font-size":"2.8rem",
+  "color":"orange",
+  "margin-bottom":"1%",
+  "font-family":"Playfair"
+}
+
 const contentBody = {
   "max-height":"max-content",
+  "width":"90%",
   "text-align":"left",
-  "font-size":"1.6rem"
+  "font-size":"1.6rem",
+  "justify-self":"center",
+  "font-weight":"bolder"
 }
 
 const buyNowBtn = {
@@ -91,9 +106,17 @@ const postContainerItem = {
   "display":"grid",
   "justify-items":"center",
   "align-items":"center",
-  "width":"90vw",
+  "width":"100%",
   "margin-bottom":"10%",
-  "height":"max-content",
+  "padding":"0",
+}
+
+const postContainerItemMobile = {
+  "display":"grid",
+  "justify-items":"center",
+  "align-items":"center",
+  "width":"100%",
+  "margin-bottom":"30%",
   "padding":"0",
 }
 
@@ -107,7 +130,7 @@ const postContentRow2 = {
 
 const postContentRow2Mobile = {
   "width":"100%",
-  "margin-left":"5%",
+  // "margin-bottom":"15%",
   "display":"grid",
   "align-items":"center",
   "grid-auto-rows":"minmax(min-content, max-content)"
@@ -119,10 +142,25 @@ const footerFontStyle = {
   "padding":"0 6px"
 }
 
+const footerContentMobile = {
+  "font-family":"Halloween",
+  "color":"orange",
+  "font-size":"2.5rem",
+  "margin-bottom": "0"
+}
+
+const footerContent = {
+  "font-family":"Halloween",
+  "color":"orange",
+  "font-size":"3.5rem",
+  "margin-bottom": "0"
+}
+
 export default {
   postContainer,
   pageContainer,
   postContainerItem,
+  postContainerItemMobile,
   postContentContainer,
   buyNowBtn,
   postImagesMobile,
@@ -133,7 +171,10 @@ export default {
   headerTextAlign,
   headerContainer,
   postTitle,
+  postTitleMobile,
   headerBody,
   headerTitle,
-  footerFontStyle
+  footerFontStyle,
+  footerContent,
+  footerContentMobile
 };

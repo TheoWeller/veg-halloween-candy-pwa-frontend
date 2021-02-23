@@ -22,11 +22,16 @@ class LoginForm extends Component {
   render(){
     return (
       <div style={{"height":"100vh", "width":"100vw"}}>
-      <h1 style={{"font-family":'Halloween', "font-size":"3.6rem", "color":"red"}}>Vegan Halloween Candy</h1>
-        <form className="container" style={{"background-color":"white", "height":"100%", "width":"100%"}} noValidate autoComplete="off">
+      <h1 style={{"font-family":'Halloween', "font-size":"3.6rem", "color":"red", "margin-top":"0"}}>Vegan Halloween Candy</h1>
+        <form id="login-form" className="container" style={{"background-color":"transparent", "height":"100%", "width":"100%"}} noValidate autoComplete="off">
           <TextField
             label="Email"
             style={{"width":"60%"}}
+            InputLabelProps={{
+              style: {
+                color: 'white'
+              }
+            }}
             className="textField"
             value={this.state.email}
             onChange={this.handleFormChange("email")}
@@ -37,6 +42,11 @@ class LoginForm extends Component {
             label="Password"
             className="textField"
             style={{"width":"60%"}}
+            InputLabelProps={{
+              style: {
+                color: 'white'
+              }
+            }}
             type="password"
             value={this.state.password}
             onChange={this.handleFormChange("password")}

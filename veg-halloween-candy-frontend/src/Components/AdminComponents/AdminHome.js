@@ -56,7 +56,7 @@ class AdminHome extends Component {
 
   render(){
     return(
-      <div style={{"width":"100%", "display":"flex","justify-content":"center", "flex-direction":"column"}}>
+      <div style={{"width":"100vw", "display":"flex","justify-content":"center", "flex-direction":"column"}}>
       <Navbar
         logout={this.props.logout}
         handleCreatePost={this.handleCreatePost}

@@ -127,7 +127,7 @@ class CreatePostForm extends Component {
   determineRankSelectOptions = (posts) => {
     const activePosts = posts.filter(post => !post.draft)
     //creates array of possible rank select options
-    const printMe = [...Array(activePosts.length + 2).keys()];
+    const printMe = [...Array(activePosts.length + 1).keys()];
     printMe.shift()
     return printMe.map(val => {
       return <option value={val}>{val}</option>
